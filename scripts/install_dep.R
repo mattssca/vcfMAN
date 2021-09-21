@@ -1,0 +1,12 @@
+#dependencies
+install.packages("stringr")
+install.packages("table1")
+install.packages("dplyr")
+install.packages("knitr")
+install.packages("devtools")
+install.packages("gridExtra")
+devtools::install_github('Mikata-Project/ggthemr')
+install.packages("BiocManager")
+BiocManager::install("karyoploteR", force = TRUE, dependencies = TRUE)
+install.packages("openxlsx")
+install.packages("RCircos")
