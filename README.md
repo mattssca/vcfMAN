@@ -11,7 +11,7 @@ Pipeline consists of scripts (R and bash) for processing Variant Call Format (VC
 7. Output files (figures, tables, summaries and reports) are generated and saved to corresponding output folder (out/SVs or out/small_variants)
 
 ## Flowchart
-Overview of associated processes and workflow described in vcfMAN. Program prompts user to specify if input VCF are SVs, small variants or if both types of VCFs are present. Valid commands are; *SVs*, *small_variants* and *both*.
+Overview of associated processes and workflow described in vcfMAN. Program prompts user to specify if input VCF are SVs, small variants or if both types of VCFs are present. Valid commands are; `SVs`, `small_variants` and `both`.
 
 ![flowchart](https://github.com/mattssca/vcfMAN/blob/main/example_figures/flowchart.png)
 
