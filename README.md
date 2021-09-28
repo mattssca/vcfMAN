@@ -5,3 +5,12 @@ Pipeline consists of scripts (R and bash) for processing Variant Call Format (VC
 Overview of associated processes and workflow described in vcfMAN.
 
 ![flowchart](https://github.com/mattssca/vcfMAN/blob/main/dep/flowchart.png)
+
+## Instructions on how to execute
+1. Downlaod repo to local machine with `wget https://github.com/mattssca/vcfMAN/archive/refs/heads/main.zip`
+2. Unpack with `unzip -a main.zip`
+3. Set directory as current directory `cd vcfMAN-main/`
+4. Install dependencies `sh install_dep.sh`
+5. Migrate VCF files (SVs/mall variants) to corresponding directory (pipeline also takes compressed VCF files in .gzip format
+6. Execute master script with `sh 01_vcf_man.sh`
+7. Output files are generated and saved to corresponding output folder (out/SVs or out/small_variants)
