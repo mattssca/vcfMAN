@@ -42,7 +42,7 @@ Here goes example figures with explanations and comments on expected output, wit
 
 ### Structural Variants
 #### SV Size Distribution
-![sv_size_dist]<img src="https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_size_violin.png" width="400" height="400">
+![sv_size_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_size_violin.png)
 
 #### SV Distribution per Chromosome (stacked)
 
