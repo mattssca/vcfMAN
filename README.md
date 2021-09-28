@@ -16,14 +16,15 @@ Overview of associated processes and workflow described in vcfMAN.
 ![flowchart](https://github.com/mattssca/vcfMAN/blob/main/example_figures/flowchart.png)
 
 ## Dependencies
+Pipeline is designed to work on MacOSX systems. Disclaimer, pipeline has not been tested on either Windows or Linux systems.
 
 | Package | Enviroment | Version |
 | ------- | ---------- | ------- |
-| [Brew](https://brew.sh/) | Mac | 3.2.0 |
-| [wget](https://www.gnu.org/software/wget/) | Mac | 1.21.2 |
-| [imagemagick](https://imagemagick.org/index.php) | C | 7.1.0 |
-| Webshot | R | 0.5.1 |
+| Brew | MacOSX | 3.2.0 |
+| wget | MacOSX | 1.21.2 |
+| imagemagick | C | 7.1.0 |
 | PhantomJS | C | 2.1.1 |
+| Webshot | R | 0.5.1 |
 | stringr | R | 1.4.0 |
 | table1 | R  | 1.4.2 |
 | dplyr | R | 2.1.1 |
