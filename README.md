@@ -13,6 +13,6 @@ Pipeline consists of scripts (R and bash) for processing Variant Call Format (VC
 ## Flowchart
 Overview of associated processes and workflow described in vcfMAN.
 
-![flowchart](https://github.com/mattssca/vcfMAN/blob/main/dep/flowchart.png)
+![flowchart](https://github.com/mattssca/vcfMAN/blob/main/example_figures/flowchart.png)
 
 ## Example output
