@@ -21,7 +21,9 @@ Overview of associated processes and workflow described in vcfMAN.
 | ------- | ---------- | ------- |
 | [Brew](https://brew.sh/) | Mac | 3.2.0 |
 | [wget](https://www.gnu.org/software/wget/) | Mac | 1.21.2 |
-| imagemagick | C | 7.1.0 |
+| [imagemagick](https://imagemagick.org/index.php) | C | 7.1.0 |
+| Webshot | R | 0.5.1 |
+| PhantomJS | C | 2.1.1 |
 | stringr | R | 1.4.0 |
 | table1 | R  | 1.4.2 |
 | dplyr | R | 2.1.1 |
@@ -33,8 +35,6 @@ Overview of associated processes and workflow described in vcfMAN.
 | karyoploteR | R | 1.18.0 |
 | openxlsx | R | 4.2.4 |
 | RCircos | R | 1.2.1 |
-| Webshot | R | 0.5.1 |
-| PhantomJS | C | 2.1.1 |
 
 ## Example output
 Here goes example figures with explanations and comments on expected output, with references.
