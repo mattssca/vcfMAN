@@ -92,6 +92,18 @@ vcf_sub = vcf_sub[order(vcf_sub$chr, vcf_sub$start),]
 vcf_sub = vcf_sub %>% select(chr, start, end, sv_length, sv_type, sv_fam, genotype)
 vcf_tmp = vcf_sub %>% select(sv_length, sv_type, sv_fam, genotype)
 
+#create new subset with variants smaller than 50bp
+vcf_sum_small = subset(vcf_sum, sv_length <= 50)
+
+#create variable for number of variants smaller or equal to 50 bp
+n_smallvariants = nrow(vcf_sum_small)
+cat ("\n        Number of variants ≤ 50bp:")
+n_smallvariants
+
+#filter out variants smaller than 50 bp
+vcf_sum = subset(vcf_sum, sv_length > 50)
+vcf_tmp = subset(vcf_tmp, sv_length > 50)
+
 #create data tables from input data
 type_tab = table1(~vcf_tmp$sv_length | vcf_tmp$sv_type, data = vcf_tmp)
 fam_tab = table1(~vcf_tmp$sv_length | vcf_tmp$sv_fam, data = vcf_tmp)
@@ -150,8 +162,65 @@ ggsave(sum_grob, file = paste0("out/SVs/figs/", txtFileName, "_SV_summary.png"),
 list_of_datasets <- list("Structural Variants - Genotype" = gen_tab, "Structural Variants - SV-Type" = fam_tab, "Structural Variant - SV-SubType" = type_tab)
 write.xlsx(list_of_datasets, paste0("out/SVs/tables/", txtFileName, "_structuralvariants_summary.xlsx"))
 
+#revert vcf to standard formatted genotype
+vcf_up = vcf_sum %>% select(chr, start, end, sv_length, sv_type, genotype)
+vcf_up$sv_type = as.factor(vcf_up$sv_type)
+vcf_up$genotype = as.factor(vcf_up$genotype)
+
+vcf_up$end[which(vcf_up$sv_type == "SIMPLEDEL")] = "NA"
+vcf_up$end[which(vcf_up$sv_type == "SUBSDEL")] = "NA"
+vcf_up$end[which(vcf_up$sv_type == "CONTRAC")] = "NA"
+
+vcf_up$sv_fam = vcf_up$sv_type
+
+levels(vcf_up$sv_fam)[levels(vcf_up$sv_fam)=="CONTRAC"] = "del"
+levels(vcf_up$sv_fam)[levels(vcf_up$sv_fam)=="SIMPLEDEL"] = "del"
+levels(vcf_up$sv_fam)[levels(vcf_up$sv_fam)=="SUBSDEL"] = "del"
+levels(vcf_up$sv_fam)[levels(vcf_up$sv_fam)=="DUP"] = "dup"
+levels(vcf_up$sv_fam)[levels(vcf_up$sv_fam)=="SIMPLEINS"] = "ins"
+
+sv_tmp_del_up = filter(vcf_up, sv_fam == "del")
+sv_tmp_del_up$end = sv_tmp_del_up$start + 1
+vcf_up = droplevels(vcf_up[!vcf_up$sv_fam == "del",])
+vcf_up = rbind(vcf_up, sv_tmp_del_up)
+
+vcf_up = vcf_up[order(vcf_up$chr, vcf_up$start),]
+vcf_up = vcf_up %>% select(chr, start, end, sv_length, sv_type, sv_fam, genotype)
+
+#transform sv_type and genotype to factor with set levels
+vcf_sum_small$sv_type = as.factor(vcf_sum_small$sv_type)
+vcf_sum_small$genotype = as.factor(vcf_sum_small$genotype)
+
+#replace end-coordinates for deletions with NA
+vcf_sum_small$end[which(vcf_sum_small$sv_type == "SIMPLEDEL")] = "NA"
+vcf_sum_small$end[which(vcf_sum_small$sv_type == "SUBSDEL")] = "NA"
+vcf_sum_small$end[which(vcf_sum_small$sv_type == "CONTRAC")] = "NA"
+
+#add new variable with SV-type "family name" (duplicate sv_type)
+vcf_sum_small$sv_fam = vcf_sum_small$sv_type
+
+#rename factors for SV family name
+levels(vcf_sum_small$sv_fam)[levels(vcf_sum_small$sv_fam)=="CONTRAC"] = "del"
+levels(vcf_sum_small$sv_fam)[levels(vcf_sum_small$sv_fam)=="SIMPLEDEL"] = "del"
+levels(vcf_sum_small$sv_fam)[levels(vcf_sum_small$sv_fam)=="SUBSDEL"] = "del"
+levels(vcf_sum_small$sv_fam)[levels(vcf_sum_small$sv_fam)=="DUP"] = "dup"
+levels(vcf_sum_small$sv_fam)[levels(vcf_sum_small$sv_fam)=="SIMPLEINS"] = "ins"
+
+#transform end coordinates for deletions (+1)
+sv_tmp_del = filter(vcf_sum_small, sv_fam == "del")
+sv_tmp_del$end = sv_tmp_del$start + 1
+
+#remove deletions from main data frame and add in transformed end coordinates for deletions
+vcf_sum_small = droplevels(vcf_sum_small[!vcf_sum_small$sv_fam == "del",])
+vcf_sum_small = rbind(vcf_sum_small, sv_tmp_del)
+vcf_sum_small = vcf_sum_small[order(vcf_sum_small$chr, vcf_sum_small$start),]
+
+#sort data frame
+vcf_sum_small = vcf_sum_small %>% select(chr, start, end, sv_length, sv_type, sv_fam, genotype)
+
 #export updated vcf format and vcf head
-write.table(vcf_sub, file = paste0("out/SVs/tables/", txtFileName, "_structuralvariants.txt"), sep = "\t", quote = FALSE, row.names = FALSE, col.names = TRUE)
+write.table(vcf_up, file = paste0("out/SVs/tables/", txtFileName, "_structuralvariants.txt"), sep = "\t", quote = FALSE, row.names = FALSE, col.names = TRUE)
+write.table(vcf_sum_small, file = paste0("out/SVs/tables/", txtFileName, "_none_structuralvariants.txt"), sep = "\t", quote = FALSE, row.names = FALSE, col.names = TRUE)
 write.table(vcfHead, file = paste0("out/SVs/tables/", txtFileName, "_HEADER.txt"), sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #print SV summary
@@ -165,3 +234,4 @@ gen_tab
 cat ("\n        :")
 type_tab
 cat ("\nVCF analysed, tsv and BED files exported...\n")
+

@@ -20,6 +20,7 @@ elif [ "$VCF" = "both" ]; then
   Rscript scripts/plot_structuralvariants.R
   sh scripts/img_man_smallvariants.sh
   sh scripts/img_man_structuralvariants.sh
+  sh scripts/img_man_combine.sh
 else
   echo "Please enter a valid input"
   sh 01_vcf_man.sh 

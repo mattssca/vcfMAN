@@ -64,12 +64,13 @@ selected = paste0("chr", c(1:22, "X"))
 #selected = paste0("chr", c(1:22, "x,y"))
 vcf_sub = vcf_sub[vcf_sub$chr %in% selected,]
 
+#duplicate filtered vcf
+vcf_up = vcf_sub
+
 #transform haplotype information to het/hom
 levels(vcf_sub$genotype)[levels(vcf_sub$genotype)=="1|1"] = "hom"
 levels(vcf_sub$genotype)[levels(vcf_sub$genotype)=="1|0"] = "het"
 levels(vcf_sub$genotype)[levels(vcf_sub$genotype)=="0|1"] = "het"
-levels(vcf_sub$genotype)[levels(vcf_sub$genotype)=="1|2"] = "het"
-levels(vcf_sub$genotype)[levels(vcf_sub$genotype)=="2|1"] = "het"
 
 #replace end-coordinates for deletions with NA
 vcf_sub$end[which(vcf_sub$sv_type == "del")] = "NA"
@@ -81,6 +82,7 @@ vcf_sub$sv_length = abs(vcf_sub$sv_length)
 #transform end coordinates for deletions and SNVs (+1)
 sv_tmp_del = filter(vcf_sub, sv_type == "del")
 sv_tmp_del$end = sv_tmp_del$start + 1
+
 sv_tmp_snv = filter(vcf_sub, sv_type == "SNV")
 sv_tmp_snv$end = sv_tmp_snv$start + 1
 sv_tmp_snv$sv_length = 1
@@ -91,63 +93,169 @@ vcf_sub = droplevels(vcf_sub[!vcf_sub$sv_type == "SNV",])
 vcf_sub = rbind(vcf_sub, sv_tmp_del, sv_tmp_snv)
 vcf_sub = vcf_sub[order(vcf_sub$chr, vcf_sub$start),]
 
+#subset and remove non-hardcoded genotypes from main df
+non_hardc_gen_2.1 = filter(vcf_sub, genotype == "2|1")
+non_hardc_gen_1.2 = filter(vcf_sub, genotype == "1|2")
+non_hardc_gen = rbind(non_hardc_gen_1.2, non_hardc_gen_2.1)
+
+#create variable for non-hardcoded genotypes and print n variants
+n_non_hardc_gen = nrow(non_hardc_gen)
+cat ("\n        Number of variants with non hardcoded genotype (2|1 and 1|2)")
+n_non_hardc_gen
+
+vcf_sub = subset(vcf_sub, genotype != "1|2")
+vcf_sub = subset(vcf_sub, genotype != "2|1")
+
+#subset variants larger than 50 bp
+vcf_sub_large = subset(vcf_sub, sv_length > 50)
+
+#create variable for number of variants smaller or equal to 50 bp
+n_largevariants = nrow(vcf_sub_large)
+cat ("\n        Number of variants > 50bp:")
+n_largevariants
+
+#filter out variants large than 50 bp
+vcf_sub = subset(vcf_sub, sv_length <= 50)
+
+#revert vcf to standard formatted genotype
+vcf_up$end[which(vcf_up$sv_type == "del")] = "NA"
+vcf_up$end[which(vcf_up$sv_type == "SNV")] = "NA"
+
+vcf_up$sv_length = abs(vcf_up$sv_length)
+
+sv_tmp_del = filter(vcf_up, sv_type == "del")
+sv_tmp_del$end = sv_tmp_del$start + 1
+
+sv_tmp_snv = filter(vcf_up, sv_type == "SNV")
+sv_tmp_snv$end = sv_tmp_snv$start + 1
+sv_tmp_snv$sv_length = 1
+
+vcf_up = droplevels(vcf_up[!vcf_up$sv_type == "del",])
+vcf_up = droplevels(vcf_up[!vcf_up$sv_type == "SNV",])
+vcf_up = rbind(vcf_up, sv_tmp_del, sv_tmp_snv)
+vcf_up = vcf_up[order(vcf_up$chr, vcf_up$start),]
+
+vcf_up_large = subset(vcf_up, sv_length > 50)
+
+vcf_up = subset(vcf_up, genotype != "1|2")
+vcf_up = subset(vcf_up, genotype != "2|1")
+
+vcf_up = subset(vcf_up, sv_length <= 50)
+
+#tables
 #create data tables from input data
 type_tab = table1(~vcf_sub$sv_length | vcf_sub$sv_type, data = vcf_sub)
 gen_tab = table1(~vcf_sub$sv_length | vcf_sub$genotype, data = vcf_sub)
+large_tab = table1(~vcf_up_large$sv_length | vcf_up_large$sv_type, data = vcf_up_large)
+nongen_tab = table1(~non_hardc_gen$sv_type | non_hardc_gen$genotype, data = non_hardc_gen)
 
 #transform data tables to data frames
-gen_tab = as.data.frame(read_html(gen_tab) %>% html_table(fill=TRUE))
 type_tab = as.data.frame(read_html(type_tab) %>% html_table(fill=TRUE))
+gen_tab = as.data.frame(read_html(gen_tab) %>% html_table(fill=TRUE))
+large_tab = as.data.frame(read_html(large_tab) %>% html_table(fill=TRUE))
+nongen_tab = as.data.frame(read_html(nongen_tab) %>% html_table(fill=TRUE))
 
 #remove first row
-gen_tab = gen_tab[-1,]
 type_tab = type_tab[-1,]
+gen_tab = gen_tab[-1,]
+large_tab = large_tab[-1,]
+nongen_tab = nongen_tab[-1,]
 
 #rename varaible
-names(gen_tab)[names(gen_tab) == "Var.1"] <- "MCT"
 names(type_tab)[names(type_tab) == "Var.1"] <- "MCT"
-
-#rbind columns from individual data frames
-sum_metric_tab = cbind(gen_tab[1], gen_tab[2], gen_tab[3], type_tab[2], type_tab[3], type_tab[4], type_tab[5])
+names(gen_tab)[names(gen_tab) == "Var.1"] <- "MCT"
+names(large_tab)[names(large_tab) == "Var.1"] <- "MCT"
+names(nongen_tab)[names(nongen_tab) == "Var.1"] <- "MCT"
 
 #format new line in data frame
-lhet = filter(vcf_sub, genotype == "het") %>% nrow()
-lhom = filter(vcf_sub, genotype == "hom") %>% nrow()
 ldel = filter(vcf_sub, sv_type == "del") %>% nrow()
 ldup = filter(vcf_sub, sv_type == "dup") %>% nrow()
 lSNV = filter(vcf_sub, sv_type == "SNV") %>% nrow()
 lall = nrow(vcf_sub)
 
+lhet = filter(vcf_sub, genotype == "het") %>% nrow()
+lhom = filter(vcf_sub, genotype == "hom") %>% nrow()
+lgen = lhet + lhom
+
+lldel = filter(vcf_up_large, sv_type == "del") %>% nrow()
+lldup = filter(vcf_up_large, sv_type == "dup") %>% nrow()
+llall = nrow(vcf_up_large)
+
+l2_1 = filter(non_hardc_gen, genotype == "2|1") %>% nrow()
+l1_2 = filter(non_hardc_gen, genotype == "1|2") %>% nrow()
+lnongen = nrow(non_hardc_gen)
+
 #combine all lists
-sum_metric_tab[nrow(sum_metric_tab) + 1,] = c("n", lhet, lhom, ldel, ldup, lSNV, lall)
-sum_metric_tab[nrow(sum_metric_tab) + 1,] = c("Type", "Homozygous", "Heterozygous", "Duplications", "Deletions", "SNVs", "All Variants")
+type_tab[nrow(type_tab) + 1,] = c("n", ldup, ldel, lSNV, lall)
+type_tab[nrow(type_tab) + 1,] = c("Small-Variants Summary", "Duplications", "Deletions", "SNVs", "All Variants")
+
+gen_tab[nrow(gen_tab) + 1,] = c("n", lhet, lhom, lgen)
+gen_tab[nrow(gen_tab) + 1,] = c("Genotypes", "Heterozygous", "Homozygous", "Total")
+
+large_tab[nrow(large_tab) + 1,] = c("n", lldup, lldel, llall)
+large_tab[nrow(large_tab) + 1,] = c("Variants > 50 bp", "Duplications", "Deletions", "All Variants")
+
+nongen_tab[nrow(nongen_tab) + 1,] = c("n", l2_1, l1_2, lnongen)
+nongen_tab[nrow(nongen_tab) + 1,] = c("Non-hardcoded Genotypes", "2|1", "1|2", "Total")
 
 #rename variable names
-sum_metric_tab$MCT[1] = "Length bp - Mean (SD)"
-sum_metric_tab$MCT[2] = "Length bp - Median [Min, Max]"
+type_tab$MCT[1] = "Mean (SD)"
+type_tab$MCT[2] = "Median [Min, Max]"
+
+gen_tab$MCT[1] = "Mean (SD)"
+gen_tab$MCT[2] = "Median [Min, Max]"
+
+large_tab$MCT[1] = "Mean (SD)"
+large_tab$MCT[2] = "Median [Min, Max]"
 
 #select rows
-sum_metric_tab_filt = sum_metric_tab[c(4,3,1,2), (1:7)]
+type_tab_filt = type_tab[c(4,3,1,2), (1:5)]
+gen_tab_filt = gen_tab[c(4,3,1,2), (1:4)]
+large_tab_filt = large_tab[c(4,3,1,2), (1:4)]
+nongen_tab_filt = nongen_tab[c(5,4,1,2,3), (1:4)]
 
 #transform summary table
-sum_metric_tab_filt = t(sum_metric_tab_filt)
-sum_metric_tab_filt = as.data.frame(sum_metric_tab_filt)
-colnames(sum_metric_tab_filt) = as.character(unlist(sum_metric_tab_filt[1,]))
-sum_metric_tab_filt = sum_metric_tab_filt[-1, ]
+type_tab_filt = t(type_tab_filt)
+type_tab_filt = as.data.frame(type_tab_filt)
+colnames(type_tab_filt) = as.character(unlist(type_tab_filt[1,]))
+type_tab_filt = type_tab_filt[-1, ]
+
+gen_tab_filt = t(gen_tab_filt)
+gen_tab_filt = as.data.frame(gen_tab_filt)
+colnames(gen_tab_filt) = as.character(unlist(gen_tab_filt[1,]))
+gen_tab_filt = gen_tab_filt[-1, ]
+
+large_tab_filt = t(large_tab_filt)
+large_tab_filt = as.data.frame(large_tab_filt)
+colnames(large_tab_filt) = as.character(unlist(large_tab_filt[1,]))
+large_tab_filt = large_tab_filt[-1, ]
+
+nongen_tab_filt = t(nongen_tab_filt)
+nongen_tab_filt = as.data.frame(nongen_tab_filt)
+colnames(nongen_tab_filt) = as.character(unlist(nongen_tab_filt[1,]))
+nongen_tab_filt = nongen_tab_filt[-1, ]
 
 #convert data frame into grob
-sum_grob = tableGrob(sum_metric_tab_filt, rows = NULL)
-
-#export summary table as png
-ggsave(sum_grob, file = paste0("out/small_variants/figs/", txtFileName, "_smallvariants_summary.png"), limitsize = FALSE, width = 7, height = 2, units = c("in"), dpi = 300)
+type_grob = tableGrob(type_tab_filt, rows = NULL)
+gen_grob = tableGrob(gen_tab_filt, rows = NULL)
+large_grob = tableGrob(large_tab_filt, rows = NULL) 
+nongen_grob = tableGrob(nongen_tab_filt, rows = NULL)
 
 #write each data frame as a separate sheet to xlsx
-list_of_datasets <- list("Small Variants - Genotype" = gen_tab, "Small Variant - SV Type" = type_tab)
+list_of_datasets = list("Small Variants - Genotype" = gen_tab, "Small Variant - SV Type" = type_tab)
 write.xlsx(list_of_datasets, paste0("out/small_variants/tables/", txtFileName, "_smallvariants_summary.xlsx"))
 
+#export summary table as png
+ggsave(type_grob, file = paste0("out/small_variants/figs/", txtFileName, "_smallvariants_summary.png"), limitsize = FALSE, width = 7, height = 2, units = c("in"), dpi = 300)
+ggsave(gen_grob, file = paste0("out/small_variants/figs/", txtFileName, "_smallvariants_genotypes.png"), limitsize = FALSE, width = 7, height = 2, units = c("in"), dpi = 300)
+ggsave(large_grob, file = paste0("out/small_variants/figs/", txtFileName, "_smallvariants_large_variants.png"), limitsize = FALSE, width = 7, height = 2, units = c("in"), dpi = 300)
+ggsave(nongen_grob, file = paste0("out/small_variants/figs/", txtFileName, "_smallvariants_nongen_variants.png"), limitsize = FALSE, width = 7, height = 2, units = c("in"), dpi = 300)
+
 #export updated vcf format and vcf head
-write.table(vcf_sub, file = paste0("out/small_variants/tables/", txtFileName, "_smallvariants.txt"), sep = "\t", quote = FALSE, row.names = FALSE, col.names = TRUE)
+write.table(vcf_up, file = paste0("out/small_variants/tables/", txtFileName, "_smallvariants.txt"), sep = "\t", quote = FALSE, row.names = FALSE, col.names = TRUE)
 write.table(vcfHead, file = paste0("out/small_variants/tables/", txtFileName, "_HEADER.txt"), sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+write.table(non_hardc_gen, file = paste0("out/small_variants/tables/", txtFileName, "_non-hardcoded-genotypes_smallvariants.txt"), sep = "\t", quote = FALSE, row.names = FALSE, col.names = TRUE)
+write.table(vcf_up_large, file = paste0("out/small_variants/tables/", txtFileName, "_none_smallvariants.txt"), sep = "\t", quote = FALSE, row.names = FALSE, col.names = TRUE)
 
 #print SV summary
 vcf_tmp = vcf_sub %>% select(sv_length, sv_type, genotype)
@@ -160,3 +268,4 @@ cat ("\n        :")
 gen_tab
 cat ("\n        :")
 cat ("\nVCF analysed, tsv and BED files exported...\n")
+

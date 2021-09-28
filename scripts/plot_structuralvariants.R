@@ -64,8 +64,6 @@ sv_ins = distinct(sv_ins, chr, .keep_all = TRUE)
 #melt dataframes into one
 sv_calls.count = rbind(sv_del, sv_dup, sv_ins)
 
-#normalize chr counts
-
 #pie
 #subset data for piechart
 sv_calls_pie = sv_calls %>%
@@ -91,6 +89,14 @@ sv_tags <- cut(sv_calls$sv_length, breaks=breaks, include.lowest=TRUE, right=FAL
 #genotype box
 #create summary table
 sv_tab = sv_calls %>% select(sv_length, sv_type, sv_fam, genotype)
+
+#turn into factor
+sv_tab$genotype = as.factor(sv_tab$genotype)
+
+#sub genotype info
+levels(sv_tab$genotype)[levels(sv_tab$genotype)=="1|1"] = "hom"
+levels(sv_tab$genotype)[levels(sv_tab$genotype)=="1|0"] = "het"
+levels(sv_tab$genotype)[levels(sv_tab$genotype)=="0|1"] = "het"
 
 #subset dataframe on sv subtype
 sv_tab_del = filter(sv_tab, sv_fam == "del")
@@ -133,30 +139,16 @@ sv_chrdist_box = ggplot(sv_calls.count, aes(x = chr, y = n, fill = sv_fam)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_y_continuous(breaks = seq(0, ymax, by = 2))
 
-#piechart
-sv_pie = ggplot(sv_calls_pie, aes(x="", y=count, fill=sv_fam)) +
-  geom_bar(stat="identity", width=1) +
-  labs(title = plot.title.pie, x = "", y = "", fill = "") +
-  theme(axis.line.y = element_blank(), axis.line.x = element_blank(), axis.ticks.y = element_blank()) +
-  geom_text(aes(label = paste0(count," (", scales::percent(count / sum(count)), ")")), position = position_stack(vjust = 0.5)) +
-  coord_polar("y", start=0)
-
 #binned sv size
 sv_binned = ggplot(data = as_tibble(sv_tags), mapping = aes(x=value)) + 
   geom_bar(fill = "#48727D") + 
   theme(axis.title.x = element_blank()) +
   labs(title = plot.title.binned, y = y.axis.name.binned, fill = "")
 
-#sv genotype distribution
-sv_genotype_box = ggplot(sv_tab_genotype_count, aes(x = sv_fam, y = n, fill = genotype)) +
-  labs(title = plot.title.genotype, x = "", y = "Count (n)", fill = "") +
-  geom_bar(position = "stack", stat = "identity") +
-  scale_fill_manual(values = c("#3BA87B", "#1948A8"))
-
 #save sv genotypes as table instead of piechart
 sum_genotypes = as.data.frame(sv_tab_genotype_count)
 colnames(sum_genotypes) <- c("SV Type", "Genotype", "Count")
-sum_genotypes = tableGrob(sum_genotypes, rows = NULL)
+sum_genotypes_grob = tableGrob(sum_genotypes, rows = NULL)
 
 #plot header for raport
 text = paste0(sample_name, " | GRCh38 | Structural Variants | ", now)
@@ -221,11 +213,9 @@ whatever <- dev.off()
 #export plots
 ggsave(sv_size_violine, file = paste0("out/SVs/figs/", txtFileName, "_02_sv_size_violin.png"), limitsize = FALSE, width = 7, height = 7, units = c("in"), dpi = 300)
 ggsave(sv_chrdist_box, file = paste0("out/SVs/figs/", txtFileName, "_01_sv_chrdist.png"), limitsize = FALSE, width = 14, height = 6, units = c("in"), dpi = 300)
-ggsave(sv_pie, file = paste0("out/SVs/figs/", txtFileName, "_05_sv_pie.png"), limitsize = FALSE, width = 7, height = 7, units = c("in"), dpi = 300)
 ggsave(sv_binned, file = paste0("out/SVs/figs/", txtFileName, "_03_sv_binned.png"), limitsize = FALSE, width = 7, height = 7, units = c("in"), dpi = 300)
-ggsave(sv_genotype_box, file = paste0("out/SVs/figs/", txtFileName, "_04_sv_genotype.png"), limitsize = FALSE, width = 7, height = 7, units = c("in"), dpi = 300)
 ggsave(plot.title, file = paste0("out/SVs/figs/", txtFileName, "_header.png"), limitsize = FALSE, width = 14, height = 1, units = c("in"), dpi = 300)
-ggsave(sum_genotypes, file = paste0("out/SVs/figs/", txtFileName, "04_sum_genotypes.png"), limitsize = FALSE, width = 3, height = 2, units = c("in"), dpi = 300)
+ggsave(sum_genotypes_grob, file = paste0("out/SVs/figs/", txtFileName, "04_sum_genotypes.png"), limitsize = FALSE, width = 3, height = 2, units = c("in"), dpi = 300)
 ggsave(box, file = paste0("out/SVs/figs/", txtFileName, "_box1.png"), limitsize = FALSE, width = 2, height = 2, units = c("in"), dpi = 300)
 ggsave(box, file = paste0("out/SVs/figs/", txtFileName, "_box2.png"), limitsize = FALSE, width = 14, height = 0.3, units = c("in"), dpi = 300)
 
