@@ -15,6 +15,39 @@ Overview of associated processes and workflow described in vcfMAN. Program promp
 
 ![flowchart](https://github.com/mattssca/vcfMAN/blob/main/example_figures/flowchart.png)
 
+## Example Output
+Here goes example figures with explanations and comments on expected output, with references for interpretations etc.
+
+### Structural Variants
+#### SV Size Distribution
+![sv_size_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_sv_size_violin.png)
+
+#### SV Distribution per Chromosome (stacked)
+![sv_chrdist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_sv_chrdist.png)
+
+#### Binned SV Sizes
+![sv_binned](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_sv_binned.png)
+
+#### Circos Plot
+![sv_circos](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_circos.png)
+
+#### Tables and Summaries
+
+### Small Variants
+#### Small variants Size Distribution
+![small_variants_size_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_size_violin.png)
+
+#### SNV Distribution per Chromosome
+![small_variants_chrdist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_snv_chr_dist.png)
+
+#### SNV Distance
+![small_variants_snv_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_snv_distance.png)
+
+#### Loss of Heterozygosity
+![]()
+
+#### Tables and Summaries
+
 ## Dependencies
 Pipeline is designed to work on MacOSX systems. Disclaimer, pipeline has not been tested on either Windows or Linux systems.
 
@@ -36,29 +69,3 @@ Pipeline is designed to work on MacOSX systems. Disclaimer, pipeline has not bee
 | karyoploteR | R | 1.18.0 |
 | openxlsx | R | 4.2.4 |
 | RCircos | R | 1.2.1 |
-
-## Example Output
-Here goes example figures with explanations and comments on expected output, with references for interpretations etc.
-
-### Structural Variants
-#### SV Size Distribution
-![sv_size_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_size_violin.png)
-
-#### SV Distribution per Chromosome (stacked)
-
-#### Binned SV Sizes
-
-#### Circos Plot
-
-#### Tables and Summaries
-
-### Small Variants
-#### Small variants Size Distribution
-
-#### SNV Distribution per Chromosome
-
-#### SNV Distance
-
-#### Loss of Heterozygosity
-
-#### Tables and Summaries
