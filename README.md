@@ -37,11 +37,12 @@ Pipeline is designed to work on MacOSX systems. Disclaimer, pipeline has not bee
 | openxlsx | R | 4.2.4 |
 | RCircos | R | 1.2.1 |
 
-## Example output
-Here goes example figures with explanations and comments on expected output, with references.
+## Example Output
+Here goes example figures with explanations and comments on expected output, with references for interpretations etc.
 
 ### Structural Variants
 #### SV Size Distribution
+![sv_size_dist]<img src="https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_size_violin.png" width="400" height="400">
 
 #### SV Distribution per Chromosome (stacked)
 
