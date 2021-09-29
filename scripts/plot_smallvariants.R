@@ -1,3 +1,6 @@
+#remove warning messages
+options(warn=-1)
+
 #load packages
 suppressMessages(library(ggplot2))
 suppressMessages(library(dplyr))
