@@ -227,11 +227,4 @@ write.table(vcfHead, file = paste0("out/SVs/tables/", txtFileName, "_HEADER.txt"
 variant_summary = summary(vcf_tmp)
 cat ("\n        Summary Structural Variants Metrics:")
 kable(variant_summary)
-cat ("\n        :")
-fam_tab
-cat ("\n        :")
-gen_tab
-cat ("\n        :")
-type_tab
-cat ("\nVCF analysed, tsv and BED files exported...\n")
-
+cat ("\nVCF (SVs) analysed, tsv and BED files exported...\n")

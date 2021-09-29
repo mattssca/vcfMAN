@@ -262,10 +262,4 @@ vcf_tmp = vcf_sub %>% select(sv_length, sv_type, genotype)
 variant_summary = summary(vcf_tmp)
 cat ("\n        Summary Small Variants Metrics:")
 kable(variant_summary)
-cat ("\n        :")
-type_tab
-cat ("\n        :")
-gen_tab
-cat ("\n        :")
-cat ("\nVCF analysed, tsv and BED files exported...\n")
-
+cat ("\nVCF (small variants) analysed, tsv and BED files exported...\n")
