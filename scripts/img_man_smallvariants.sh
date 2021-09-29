@@ -4,7 +4,6 @@
 convert out/small_variants/figs/*_smallvariants_summary.png out/small_variants/figs/*_smallvariants_genotypes.png +append -quiet out/small_variants/out1.png
 convert out/small_variants/figs/*_smallvariants_large_variants.png out/small_variants/figs/*_smallvariants_nongen_variants.png +append -quiet out/small_variants/out2.png
 convert out/small_variants/figs/*_01_smallvariants_size_violin.png out/small_variants/figs/*_03_snv_chr_dist.png +append -quiet out/small_variants/out3.png
-convert out/small_variants/figs/*_header.png out/small_variants/out1.png out/small_variants/out2.png out/small_variants/out3.png out/small_variants/figs/*_02_snv_distance.png -append out/small_variants/report.png
 
 # crop images
 convert out/small_variants/figs/ideograms/chr1.png -crop 4424x193+132+415 out/small_variants/figs/ideograms/chr1.png
@@ -45,6 +44,9 @@ convert out/small_variants/figs/ideograms/plot.title.png out/small_variants/figs
 
 #resize ideogram to fit report format
 convert -resize 4200 -quality 10 out/small_variants/figs/ideograms/ideogram.png out/small_variants/figs/ideograms/ideogram.png
+
+#compile report
+convert out/small_variants/figs/*_header.png out/small_variants/out1.png out/small_variants/out2.png out/small_variants/out3.png out/small_variants/figs/*_02_snv_distance.png out/small_variants/figs/ideograms/ideogram.png -append out/small_variants/report.png
 
 #delete unused files
 rm out/small_variants/out1.png
