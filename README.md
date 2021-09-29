@@ -41,7 +41,10 @@ Here goes example figures with explanations and comments on expected output, wit
 ![small_variants_chrdist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_snv_chr_dist.png)
 
 #### SNV Distance
-![small_variants_snv_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_snv_distance.png)
+![small_variants_snv_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_snv_distance.png)¨
+
+#### SNV Ideogram
+![snv_ideogram](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_ideogram.png)
 
 #### Tables and Summaries
 
