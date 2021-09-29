@@ -216,6 +216,117 @@ sv_deldup = rbind(sv_del, sv_dup)
 #remove any potential variants larger than 50bp (=SV)
 sv_deldup = sv_deldup[sv_deldup[,4]<50,]
 
+#SNV ideogram
+#subset all snv to new df
+snv_calls = filter(sv_calls, sv_type == "SNV") %>%
+  select(chr, start)
+
+#set end coordinates (default to 30000 bp)
+endcoordval = 30000
+
+#duplicate snv df
+snv_calls_ideo = snv_calls
+
+snv_calls_ideo$end = snv_calls_ideo$start + endcoordval
+
+#set chr as factor
+snv_calls_ideo$chr = as.factor(snv_calls_ideo$chr)
+
+#subset every chr, remove first line, duplicate last row, merge df, calculate snv distance (bp), remove lst row
+snv_chr1_ideo = filter(snv_calls_ideo, chr =="chr1")
+snv_chr2_ideo = filter(snv_calls_ideo, chr =="chr2")
+snv_chr3_ideo = filter(snv_calls_ideo, chr =="chr3")
+snv_chr4_ideo = filter(snv_calls_ideo, chr =="chr4")
+snv_chr5_ideo = filter(snv_calls_ideo, chr =="chr5")
+snv_chr6_ideo = filter(snv_calls_ideo, chr =="chr6")
+snv_chr7_ideo = filter(snv_calls_ideo, chr =="chr7")
+snv_chr8_ideo = filter(snv_calls_ideo, chr =="chr8")
+snv_chr9_ideo = filter(snv_calls_ideo, chr =="chr9")
+snv_chr10_ideo = filter(snv_calls_ideo, chr =="chr10")
+snv_chr11_ideo = filter(snv_calls_ideo, chr =="chr11")
+snv_chr12_ideo = filter(snv_calls_ideo, chr =="chr12")
+snv_chr13_ideo = filter(snv_calls_ideo, chr =="chr13")
+snv_chr14_ideo = filter(snv_calls_ideo, chr =="chr14")
+snv_chr15_ideo = filter(snv_calls_ideo, chr =="chr15")
+snv_chr16_ideo = filter(snv_calls_ideo, chr =="chr16")
+snv_chr17_ideo = filter(snv_calls_ideo, chr =="chr17")
+snv_chr18_ideo = filter(snv_calls_ideo, chr =="chr18")
+snv_chr19_ideo = filter(snv_calls_ideo, chr =="chr19")
+snv_chr20_ideo = filter(snv_calls_ideo, chr =="chr20")
+snv_chr21_ideo = filter(snv_calls_ideo, chr =="chr21")
+snv_chr22_ideo = filter(snv_calls_ideo, chr =="chr22")
+
+#ideograms (SNVs)
+#read dependencies for plotting
+chr1.table = read.table("dep/ideograms/chrtable/GRCh38.chr1.table.txt", header = FALSE, sep = "\t")
+chr2.table = read.table("dep/ideograms/chrtable/GRCh38.chr2.table.txt", header = FALSE, sep = "\t")
+chr3.table = read.table("dep/ideograms/chrtable/GRCh38.chr3.table.txt", header = FALSE, sep = "\t")
+chr4.table = read.table("dep/ideograms/chrtable/GRCh38.chr4.table.txt", header = FALSE, sep = "\t")
+chr5.table = read.table("dep/ideograms/chrtable/GRCh38.chr5.table.txt", header = FALSE, sep = "\t")
+chr6.table = read.table("dep/ideograms/chrtable/GRCh38.chr6.table.txt", header = FALSE, sep = "\t")
+chr7.table = read.table("dep/ideograms/chrtable/GRCh38.chr7.table.txt", header = FALSE, sep = "\t")
+chr8.table = read.table("dep/ideograms/chrtable/GRCh38.chr8.table.txt", header = FALSE, sep = "\t")
+chr9.table = read.table("dep/ideograms/chrtable/GRCh38.chr9.table.txt", header = FALSE, sep = "\t")
+chr10.table = read.table("dep/ideograms/chrtable/GRCh38.chr10.table.txt", header = FALSE, sep = "\t")
+chr11.table = read.table("dep/ideograms/chrtable/GRCh38.chr11.table.txt", header = FALSE, sep = "\t")
+chr12.table = read.table("dep/ideograms/chrtable/GRCh38.chr12.table.txt", header = FALSE, sep = "\t")
+chr13.table = read.table("dep/ideograms/chrtable/GRCh38.chr13.table.txt", header = FALSE, sep = "\t")
+chr14.table = read.table("dep/ideograms/chrtable/GRCh38.chr14.table.txt", header = FALSE, sep = "\t")
+chr15.table = read.table("dep/ideograms/chrtable/GRCh38.chr15.table.txt", header = FALSE, sep = "\t")
+chr16.table = read.table("dep/ideograms/chrtable/GRCh38.chr16.table.txt", header = FALSE, sep = "\t")
+chr17.table = read.table("dep/ideograms/chrtable/GRCh38.chr17.table.txt", header = FALSE, sep = "\t")
+chr18.table = read.table("dep/ideograms/chrtable/GRCh38.chr18.table.txt", header = FALSE, sep = "\t")
+chr19.table = read.table("dep/ideograms/chrtable/GRCh38.chr19.table.txt", header = FALSE, sep = "\t")
+chr20.table = read.table("dep/ideograms/chrtable/GRCh38.chr20.table.txt", header = FALSE, sep = "\t")
+chr21.table = read.table("dep/ideograms/chrtable/GRCh38.chr21.table.txt", header = FALSE, sep = "\t")
+chr22.table = read.table("dep/ideograms/chrtable/GRCh38.chr22.table.txt", header = FALSE, sep = "\t")
+chr1.cent = read.table("dep/ideograms/centromeres/GRCh38.chr1.centromeres.txt", header = FALSE, sep = "\t")
+chr2.cent = read.table("dep/ideograms/centromeres/GRCh38.chr2.centromeres.txt", header = FALSE, sep = "\t")
+chr3.cent = read.table("dep/ideograms/centromeres/GRCh38.chr3.centromeres.txt", header = FALSE, sep = "\t")
+chr4.cent = read.table("dep/ideograms/centromeres/GRCh38.chr4.centromeres.txt", header = FALSE, sep = "\t")
+chr5.cent = read.table("dep/ideograms/centromeres/GRCh38.chr5.centromeres.txt", header = FALSE, sep = "\t")
+chr6.cent = read.table("dep/ideograms/centromeres/GRCh38.chr6.centromeres.txt", header = FALSE, sep = "\t")
+chr7.cent = read.table("dep/ideograms/centromeres/GRCh38.chr7.centromeres.txt", header = FALSE, sep = "\t")
+chr8.cent = read.table("dep/ideograms/centromeres/GRCh38.chr8.centromeres.txt", header = FALSE, sep = "\t")
+chr9.cent = read.table("dep/ideograms/centromeres/GRCh38.chr9.centromeres.txt", header = FALSE, sep = "\t")
+chr10.cent = read.table("dep/ideograms/centromeres/GRCh38.chr10.centromeres.txt", header = FALSE, sep = "\t")
+chr11.cent = read.table("dep/ideograms/centromeres/GRCh38.chr11.centromeres.txt", header = FALSE, sep = "\t")
+chr12.cent = read.table("dep/ideograms/centromeres/GRCh38.chr12.centromeres.txt", header = FALSE, sep = "\t")
+chr13.cent = read.table("dep/ideograms/centromeres/GRCh38.chr13.centromeres.txt", header = FALSE, sep = "\t")
+chr14.cent = read.table("dep/ideograms/centromeres/GRCh38.chr14.centromeres.txt", header = FALSE, sep = "\t")
+chr15.cent = read.table("dep/ideograms/centromeres/GRCh38.chr15.centromeres.txt", header = FALSE, sep = "\t")
+chr16.cent = read.table("dep/ideograms/centromeres/GRCh38.chr16.centromeres.txt", header = FALSE, sep = "\t")
+chr17.cent = read.table("dep/ideograms/centromeres/GRCh38.chr17.centromeres.txt", header = FALSE, sep = "\t")
+chr18.cent = read.table("dep/ideograms/centromeres/GRCh38.chr18.centromeres.txt", header = FALSE, sep = "\t")
+chr19.cent = read.table("dep/ideograms/centromeres/GRCh38.chr19.centromeres.txt", header = FALSE, sep = "\t")
+chr20.cent = read.table("dep/ideograms/centromeres/GRCh38.chr20.centromeres.txt", header = FALSE, sep = "\t")
+chr21.cent = read.table("dep/ideograms/centromeres/GRCh38.chr21.centromeres.txt", header = FALSE, sep = "\t")
+chr22.cent = read.table("dep/ideograms/centromeres/GRCh38.chr22.centromeres.txt", header = FALSE, sep = "\t")
+
+#calculate n snv
+chr1.n = nrow(snv_chr1_ideo)
+chr2.n = nrow(snv_chr2_ideo)
+chr3.n = nrow(snv_chr3_ideo)
+chr4.n = nrow(snv_chr4_ideo)
+chr5.n = nrow(snv_chr5_ideo)
+chr6.n = nrow(snv_chr6_ideo)
+chr7.n = nrow(snv_chr7_ideo)
+chr8.n = nrow(snv_chr8_ideo)
+chr9.n = nrow(snv_chr9_ideo)
+chr10.n = nrow(snv_chr10_ideo)
+chr11.n = nrow(snv_chr11_ideo)
+chr12.n = nrow(snv_chr12_ideo)
+chr13.n = nrow(snv_chr13_ideo)
+chr14.n = nrow(snv_chr14_ideo)
+chr15.n = nrow(snv_chr15_ideo)
+chr16.n = nrow(snv_chr16_ideo)
+chr17.n = nrow(snv_chr17_ideo)
+chr18.n = nrow(snv_chr18_ideo)
+chr19.n = nrow(snv_chr19_ideo)
+chr20.n = nrow(snv_chr20_ideo)
+chr21.n = nrow(snv_chr21_ideo)
+chr22.n = nrow(snv_chr22_ideo)
+
 #plot
 sv_size_violine = ggplot(sv_deldup, aes(x = sv_type, y = sv_length, fill = sv_type)) + 
   labs(title = "Small Variants Size Distribution", x = "", y = "Size (bp)") +
@@ -246,9 +357,415 @@ plot.title = ggplot() +
   theme_void() +
   theme(panel.background = element_rect(fill = "white", colour = "white"))
 
+#plot ideograms
+chr1.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr1.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr1.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr1_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr1.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr1 ", color="black", size = 8)
+
+chr2.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr2.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr2.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr2_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr2.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr2 ", color="black", size = 8)
+
+chr3.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr3.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr3.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr3_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr3.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr3 ", color="black", size = 8)
+
+chr4.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr4.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr4.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr4_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr4.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr4 ", color="black", size = 8)
+
+chr5.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr5.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr5.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr5_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr5.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr5 ", color="black", size = 8)
+
+chr6.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr6.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr6.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr6_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr6.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr6 ", color="black", size = 8)
+
+chr7.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr7.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr7.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr7_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr7.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr7 ", color="black", size = 8)
+
+chr8.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr8.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr8.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr8_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr8.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr8 ", color="black", size = 8)
+
+chr9.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr9.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr9.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr9_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr9.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr9 ", color="black", size = 8)
+
+chr10.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr10.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr10.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr10_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr10.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr10 ", color="black", size = 8)
+
+chr11.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr11.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr11.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr11_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr11.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr11 ", color="black", size = 8)
+
+chr12.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr12.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr12.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr12_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr12.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr12 ", color="black", size = 8)
+
+chr13.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr13.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr13.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr13_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr13.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr13 ", color="black", size = 8)
+
+chr14.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr14.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr14.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr14_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr14.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr14 ", color="black", size = 8)
+
+chr15.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr15.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr15.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr15_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr15.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr15 ", color="black", size = 8)
+
+chr16.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr16.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr16.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr16_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr16.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr16 ", color="black", size = 8)
+
+chr17.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr17.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr17.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr17_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr17.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr17 ", color="black", size = 8)
+
+chr18.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr18.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr18.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr18_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr18.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr18 ", color="black", size = 8)
+
+chr19.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr19.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr19.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr19_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr19.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr19 ", color="black", size = 8)
+
+chr20.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr20.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr20.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr20_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr20.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr20 ", color="black", size = 8)
+
+chr21.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr21.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr21.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr21_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr21.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr21 ", color="black", size = 8)
+
+chr22.ideo = ggplot() +
+  #chr table
+  geom_segment(data = chr22.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  #centromere
+  geom_segment(data = chr22.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
+  #snvs
+  geom_segment(data = snv_chr22_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  #annotate with number of inversion per haplotype
+  annotate(geom = "text", x = -3000000, y = 0, label = chr22.n, color = "black", size = 3) +
+  #theme
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
+  ylab("") + 
+  xlab("") +
+  ylim(-70, 70) +
+  xlim(-15000000, 248956422) +
+  annotate(geom = "text", x = -15000000, y = 0, label="chr22 ", color="black", size = 8)
+
+# plot title
+text.ideo = "SNV ideogram"
+plot.title.ideo = ggplot() + 
+  annotate("text", x = 4, y = 25, size = 8, color = "black", label = text.ideo) +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.line.x = element_blank(), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank())
+
 #export plots
 ggsave(sv_size_violine, file = paste0("out/small_variants/figs/", txtFileName, "_01_smallvariants_size_violin.png"), limitsize = FALSE, width = 7, height = 7, units = c("in"), dpi = 300)
 ggsave(snv_distance_plot, file = paste0("out/small_variants/figs/", txtFileName, "_02_snv_distance.png"), limitsize = FALSE, width = 14, height = 7, units = c("in"), dpi = 300)
 ggsave(snv_chrdist_box, file = paste0("out/small_variants/figs/", txtFileName, "_03_snv_chr_dist.png"), limitsize = FALSE, width = 7, height = 7, units = c("in"), dpi = 300)
 ggsave(plot.title, file = paste0("out/small_variants/figs/", txtFileName, "_header.png"), limitsize = FALSE, width = 14, height = 1, units = c("in"), dpi = 300)
+ggsave("plot.title.png", plot.title.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 68.245, height = 3, units = c("cm"), dpi = 300)
+ggsave("chr1.png", chr1.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr2.png", chr2.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr3.png", chr3.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr4.png", chr4.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr5.png", chr5.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr6.png", chr6.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr7.png", chr7.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr8.png", chr8.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr9.png", chr9.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr10.png", chr10.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr11.png", chr11.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr12.png", chr12.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr13.png", chr13.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr14.png", chr14.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr15.png", chr15.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr16.png", chr16.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr17.png", chr17.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr18.png", chr18.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr19.png", chr19.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr20.png", chr20.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr21.png", chr21.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave("chr22.png", chr22.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
 
+#prompt message to terminal
+cat ("Figures and summaries (small variants) exported...\n")

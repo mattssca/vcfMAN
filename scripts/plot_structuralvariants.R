@@ -210,7 +210,7 @@ rcircos.params$track.background = "wheat4"
 RCircos.Reset.Plot.Parameters(rcircos.params)
 RCircos.Tile.Plot(sv_ins_bed, track.num = 3, side = "in")
 
-# finnish
+#finish
 whatever <- dev.off()
 
 #export plots
@@ -223,4 +223,4 @@ ggsave(box, file = paste0("out/SVs/figs/", txtFileName, "_box1.png"), limitsize 
 ggsave(box, file = paste0("out/SVs/figs/", txtFileName, "_box2.png"), limitsize = FALSE, width = 14, height = 0.3, units = c("in"), dpi = 300)
 
 #prompt message to terminal
-cat ("Figures and summaries exported...\n")
+cat ("Figures and summaries (SVs) exported...\n")
