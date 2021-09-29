@@ -305,30 +305,6 @@ chr20.cent = read.table("dep/ideograms/centromeres/GRCh38.chr20.centromeres.txt"
 chr21.cent = read.table("dep/ideograms/centromeres/GRCh38.chr21.centromeres.txt", header = FALSE, sep = "\t")
 chr22.cent = read.table("dep/ideograms/centromeres/GRCh38.chr22.centromeres.txt", header = FALSE, sep = "\t")
 
-#calculate n snv
-chr1.n = nrow(snv_chr1_ideo)
-chr2.n = nrow(snv_chr2_ideo)
-chr3.n = nrow(snv_chr3_ideo)
-chr4.n = nrow(snv_chr4_ideo)
-chr5.n = nrow(snv_chr5_ideo)
-chr6.n = nrow(snv_chr6_ideo)
-chr7.n = nrow(snv_chr7_ideo)
-chr8.n = nrow(snv_chr8_ideo)
-chr9.n = nrow(snv_chr9_ideo)
-chr10.n = nrow(snv_chr10_ideo)
-chr11.n = nrow(snv_chr11_ideo)
-chr12.n = nrow(snv_chr12_ideo)
-chr13.n = nrow(snv_chr13_ideo)
-chr14.n = nrow(snv_chr14_ideo)
-chr15.n = nrow(snv_chr15_ideo)
-chr16.n = nrow(snv_chr16_ideo)
-chr17.n = nrow(snv_chr17_ideo)
-chr18.n = nrow(snv_chr18_ideo)
-chr19.n = nrow(snv_chr19_ideo)
-chr20.n = nrow(snv_chr20_ideo)
-chr21.n = nrow(snv_chr21_ideo)
-chr22.n = nrow(snv_chr22_ideo)
-
 #plot
 sv_size_violine = ggplot(sv_deldup, aes(x = sv_type, y = sv_length, fill = sv_type)) + 
   labs(title = "Small Variants Size Distribution", x = "", y = "Size (bp)") +
@@ -367,8 +343,6 @@ chr1.ideo = ggplot() +
   geom_segment(data = chr1.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr1_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr1.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -384,8 +358,6 @@ chr2.ideo = ggplot() +
   geom_segment(data = chr2.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr2_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr2.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -401,8 +373,6 @@ chr3.ideo = ggplot() +
   geom_segment(data = chr3.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr3_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr3.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -418,8 +388,6 @@ chr4.ideo = ggplot() +
   geom_segment(data = chr4.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr4_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr4.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -435,8 +403,6 @@ chr5.ideo = ggplot() +
   geom_segment(data = chr5.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr5_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr5.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -452,8 +418,6 @@ chr6.ideo = ggplot() +
   geom_segment(data = chr6.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr6_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr6.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -469,8 +433,6 @@ chr7.ideo = ggplot() +
   geom_segment(data = chr7.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr7_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr7.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -486,8 +448,6 @@ chr8.ideo = ggplot() +
   geom_segment(data = chr8.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr8_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr8.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -503,8 +463,6 @@ chr9.ideo = ggplot() +
   geom_segment(data = chr9.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr9_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr9.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -520,8 +478,6 @@ chr10.ideo = ggplot() +
   geom_segment(data = chr10.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr10_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr10.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -537,8 +493,6 @@ chr11.ideo = ggplot() +
   geom_segment(data = chr11.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr11_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr11.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -554,8 +508,6 @@ chr12.ideo = ggplot() +
   geom_segment(data = chr12.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr12_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr12.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -571,8 +523,6 @@ chr13.ideo = ggplot() +
   geom_segment(data = chr13.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr13_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr13.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -588,8 +538,6 @@ chr14.ideo = ggplot() +
   geom_segment(data = chr14.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr14_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr14.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -605,8 +553,6 @@ chr15.ideo = ggplot() +
   geom_segment(data = chr15.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr15_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr15.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -622,8 +568,6 @@ chr16.ideo = ggplot() +
   geom_segment(data = chr16.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr16_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr16.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -639,8 +583,6 @@ chr17.ideo = ggplot() +
   geom_segment(data = chr17.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr17_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr17.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -656,8 +598,6 @@ chr18.ideo = ggplot() +
   geom_segment(data = chr18.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr18_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr18.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -673,8 +613,6 @@ chr19.ideo = ggplot() +
   geom_segment(data = chr19.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr19_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr19.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -690,8 +628,6 @@ chr20.ideo = ggplot() +
   geom_segment(data = chr20.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr20_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr20.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -707,8 +643,6 @@ chr21.ideo = ggplot() +
   geom_segment(data = chr21.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr21_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr21.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -724,8 +658,6 @@ chr22.ideo = ggplot() +
   geom_segment(data = chr22.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
   geom_segment(data = snv_chr22_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
-  #annotate with number of inversion per haplotype
-  annotate(geom = "text", x = -3000000, y = 0, label = chr22.n, color = "black", size = 3) +
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
