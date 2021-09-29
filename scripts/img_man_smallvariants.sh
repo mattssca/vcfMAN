@@ -46,13 +46,14 @@ convert out/small_variants/figs/ideograms/plot.title.png out/small_variants/figs
 convert -resize 4200 -quality 10 out/small_variants/figs/ideograms/ideogram.png out/small_variants/figs/ideograms/ideogram.png
 
 #compile report
-convert out/small_variants/figs/*_header.png out/small_variants/out1.png out/small_variants/out2.png out/small_variants/out3.png out/small_variants/figs/*_02_snv_distance.png out/small_variants/figs/ideograms/ideogram.png -append out/small_variants/report.png
+convert out/small_variants/figs/*_header.png out/small_variants/out1.png out/small_variants/figs/*_box2.png out/small_variants/out2.png out/small_variants/figs/*_box2.png out/small_variants/out3.png out/small_variants/figs/*_box2.png out/small_variants/figs/*_02_snv_distance.png out/small_variants/figs/*_box2.png out/small_variants/figs/ideograms/ideogram.png out/small_variants/figs/*_box2.png -append out/small_variants/report.png
 
 #delete unused files
 rm out/small_variants/out1.png
 rm out/small_variants/out2.png
 rm out/small_variants/out3.png
 rm out/small_variants/figs/*_header.png
+rm out/small_variants/figs/*_box2.png
 rm out/small_variants/figs/ideograms/plot.title.png
 rm out/small_variants/figs/ideograms/1-12.ideogram.png
 rm out/small_variants/figs/ideograms/13-22.ideogram.png

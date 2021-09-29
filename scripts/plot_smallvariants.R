@@ -740,6 +740,11 @@ plot.title.ideo = ggplot() +
   annotate("text", x = 4, y = 25, size = 8, color = "black", label = text.ideo) +
   theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.line.x = element_blank(), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank())
 
+#plot empty box for spacing
+box = ggplot() +
+  geom_blank(mapping = NULL, data = NULL, stat = "identity", position = "identity", show.legend = NA, inherit.aes = TRUE) + 
+  theme(axis.line.x = element_blank(), axis.line.y = element_blank(), panel.background = element_rect(fill = "white", colour = "white"))
+
 #export plots
 ggsave(sv_size_violine, file = paste0("out/small_variants/figs/", txtFileName, "_01_smallvariants_size_violin.png"), limitsize = FALSE, width = 7, height = 7, units = c("in"), dpi = 300)
 ggsave(snv_distance_plot, file = paste0("out/small_variants/figs/", txtFileName, "_02_snv_distance.png"), limitsize = FALSE, width = 14, height = 7, units = c("in"), dpi = 300)
@@ -768,6 +773,7 @@ ggsave("chr19.png", chr19.ideo, path = "out/small_variants/figs/ideograms/", lim
 ggsave("chr20.png", chr20.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
 ggsave("chr21.png", chr21.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
 ggsave("chr22.png", chr22.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave(box, file = paste0("out/small_variants/figs/", txtFileName, "_box2.png"), limitsize = FALSE, width = 14, height = 0.3, units = c("in"), dpi = 300)
 
 #prompt message to terminal
 cat ("Figures and summaries (small variants) exported...\n")
