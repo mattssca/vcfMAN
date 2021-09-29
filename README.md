@@ -43,9 +43,6 @@ Here goes example figures with explanations and comments on expected output, wit
 #### SNV Distance
 ![small_variants_snv_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_snv_distance.png)
 
-#### Loss of Heterozygosity
-![]()
-
 #### Tables and Summaries
 
 ## Dependencies
@@ -69,3 +66,5 @@ Pipeline is designed to work on MacOSX systems. Disclaimer, pipeline has not bee
 | karyoploteR | R | 1.18.0 |
 | openxlsx | R | 4.2.4 |
 | RCircos | R | 1.2.1 |
+| psych | R | 2.1.6 |
+| data.table | R | 1.14.0 |
