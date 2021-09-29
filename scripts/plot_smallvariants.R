@@ -8,6 +8,8 @@ suppressMessages(library(ggthemr))
 suppressMessages(library(gridExtra))
 suppressMessages(library(RCircos))
 suppressMessages(library(ggthemr))
+suppressMessages(library(data.table))
+suppressMessages(library(psych))
 
 #get sample name
 vcf.list = list.files(path = "in/small_variants/", recursive = TRUE, pattern = "\\.vcf$", full.names = TRUE)
