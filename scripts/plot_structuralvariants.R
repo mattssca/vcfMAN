@@ -177,9 +177,9 @@ sv_ins_bed = filter(sv_calls, sv_fam == "ins") %>%
 data(UCSC.HG38.Human.CytoBandIdeogram)
 
 #set core components
-RCircos.Set.Core.Components(cyto.info = UCSC.HG38.Human.CytoBandIdeogram, chr.exclude = NULL, tracks.inside = 3, tracks.outside = 0)
+RCircos.Set.Core.Components(cyto.info = UCSC.HG38.Human.CytoBandIdeogram, chr.exclude = c("chrX", "chrY"), tracks.inside = 3, tracks.outside = 0)
 
-#set plor parameters
+#set plot parameters
 rcircos.params = RCircos.Get.Plot.Parameters()
 
 #define plotting parameters
