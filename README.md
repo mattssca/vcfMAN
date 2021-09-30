@@ -8,18 +8,45 @@ Pipeline consists of scripts (R and bash) for processing Variant Call Format (VC
 4. Install dependencies: `sh install_dep.sh`
 5. Migrate VCF files (SVs/mall variants) to corresponding directory (pipeline also takes compressed VCF files in .gzip format)
 6. Execute master script with: `sh 01_vcf_man.sh`
-7. Output files (figures, tables, summaries and reports) are generated and saved to corresponding output folder (out/SVs or out/small_variants)
+7. Software asks user to specify VCF input (SVs and small variants). Valid commands are; `SVs`, `small_variants` and `both`.
+8. Output files (figures, tables, summaries and reports) are generated and saved to corresponding output folder (out/SVs or out/small_variants)
 
 ## Flowchart
-Overview of associated processes and workflow described in vcfMAN. Program prompts user to specify if input VCF are SVs, small variants or if both types of VCFs are present. Valid commands are; `SVs`, `small_variants` and `both`.
+Overview of associated processes and workflow described in vcfMAN.
 
+1. vcf_man.sh acts as a master script and calls appropiate scripts based on the user input (SVs, small variants or both)
+2. 01-gunzip.sh (unpacksmallvariants.sh and unpackSVs.sh) checks if input VCFs are compressed with Gzip, if so, VCF files are extracted from compressed format.
+3. 02-read_vcf.R (read_vcf_smallvariants.R and read_vcf_structuralvaiants.R) initially performs data wrangling associated tasks in order to extract relevant information from input files. This is done a few different steps. The steps are;
+
+   * List VCf files located in /in folder. Strips the path and saves the sample name as a variable.
+   * Read listed VCF files into the R environment, skipping header (header is being extracted and saved in /out folder).
+   * Subset input VCF on relevant variables.
+   * Format genotype field.
+   * Format INFO field, to get variant-type (e.g deletion, duplication, etc.).
+   * Rename variable-names (e.g chromosome, start, end, genotype, etc.),
+   * Creates two new variables based on n nucleotides present in the alt and ref column.
+   * Compute SV length (alt nucleotide count - ref nucleotide count). Deletions are defined as negative sv_lenght values.
+   * Negative values are transformed into absolute values.
+   * Compute variant end-coordinates (start coordinate + sv_lenght).
+   * Genotype information is converted into character-string.
+   * End-coordinates for deleterious variants are transformed into start coordinates + 1.
+   * SV sub-types are defined (i.g SIMPLEDEL = del, SUBSDEL = del, CONTRAC = del, DUP = dup, SIMPLEINS = ins).
+   * Variants not belonging to specified input VCF are subset and removed from downstream analysis (i.e for small variants, variants > 50 bp are removed, and for SV calls variants ≤ 50 bp) Non hard coded genotypes are also subset and removed in a similar approach. Metrics related to removed variants are printed to console and saved as individual .txt files allowing for more in-depth interrogation of such variants.
+   * Data frame is sorted and exported as .tsv (main input for plotting).
+   * Summary metrics are generated and exported.
+   * Summary tables is printed to console and exported as .png.
+   
+04. 03-plot.R (plot_smallvariants.R and plot_structuralvariants.R) main plotting scripts utilizing R base functions as well as thirdparty R packages (listed in dependencies) to generate all associated plots.
+05. 04-img.sh (img_man_smallvariants.sh, img_man_structuralvariants.sh and img_man_combine.sh) are called to format variant reports in pdf. Scripts are combining tables and figures to a standardized report that can be used for interrogating call-set quality and varaint distributions.
+  
 ![flowchart](https://github.com/mattssca/vcfMAN/blob/main/example_figures/flowchart.png)
 
 ## Example Output
-Here goes example figures with explanations and comments on expected output, with references for interpretations etc.
+Brief overview and comments on output figures and tables.
 
 ### Structural Variants
 #### SV Size Distribution
+Violin plot visualizing size distributions of SVs (deletions, duplications and insertions). Variant sizes in log10 scale on y-axis and sub types of SVs (deletions, duplications and insertions) on x-axis. Black dot annotates mean variant size. 
 ![sv_size_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_sv_size_violin.png)
 
 #### SV Distribution per Chromosome (stacked)
