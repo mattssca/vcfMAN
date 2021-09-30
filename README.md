@@ -67,7 +67,7 @@ Summaries are exported as png files and located in out/SVs/fig. In addition to s
    * VCF header (previously exported).
    * non-structural variants - text file annotating all variants < 50 bp.
    * Spreadsheet (.xlsx) with different pages for each metric and subset
-   * BED formatted txt file with *chr | start | end | lenght | sv type | sv family | genotype*
+   * BED formatted txt file with **chr | start | end | lenght | sv type | sv family | genotype**
 
 ### Small Variants
 #### Small variants Size Distribution
@@ -93,7 +93,7 @@ Summaries are exported as png files and located in out/amll_variants/fig. In add
    * non-small variants variants - text file annotating all variants > 50 bp.
    * non-hardcoded genotypes (i.e 1|2, 2|1) - text file
    * Spreadsheet (.xlsx) with different pages for each metric and subset
-   * BED formatted txt file with *chr | start | end | lenght | sv type | genotype*
+   * BED formatted txt file with **chr | start | end | lenght | sv type | genotype**
 
 ## Dependencies
 Pipeline is designed to work on MacOSX systems. Disclaimer, pipeline has not been tested on either Windows or Linux systems.
