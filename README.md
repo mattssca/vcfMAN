@@ -37,7 +37,7 @@ Overview of associated processes and workflow described in vcfMAN.
    * Summary tables is printed to console and exported as .png.
    
 04. 03-plot.R ([plot_smallvariants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/plot_smallvariants.R) and [plot_structuralvariants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/plot_structuralvariants.R)) main plotting scripts utilizing R base functions as well as thirdparty R packages (listed in dependencies) to generate all associated plots.
-05. 04-img.sh (img_man_smallvariants.sh, img_man_structuralvariants.sh and img_man_combine.sh) are called to format variant reports in pdf. Scripts are combining tables and figures to a standardized report that can be used for interrogating call-set quality and varaint distributions.
+05. 04-img.sh ([img_man_smallvariants.sh](https://github.com/mattssca/vcfMAN/blob/main/scripts/img_man_smallvariants.sh), [img_man_structuralvariants.sh](https://github.com/mattssca/vcfMAN/blob/main/scripts/img_man_structuralvariants.sh) and [img_man_combine.sh](https://github.com/mattssca/vcfMAN/blob/main/scripts/img_man_combine.sh)) are called to format variant reports in pdf. Scripts are combining tables and figures to a standardized report that can be used for interrogating call-set quality and varaint distributions. Individual plots are also avaialble in out/fig folders.
   
 ![flowchart](https://github.com/mattssca/vcfMAN/blob/main/example_figures/flowchart.png)
 
@@ -54,14 +54,20 @@ Stacked histogram depicting variant distributions in chromosome-dependent manner
 ![sv_chrdist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_sv_chrdist.png)
 
 #### Binned SV Sizes
-Histogram with set bin sizes showing size distributions of SVs. Bin sizes can easily be configured to match specific desires (lines 84 and 87 of [plot_structuralvariants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/plot_structuralvariants.R)). Y-axis depicts the actual number (n) of variants residing in each bin and bins are shown along the x-axis.
+Histogram with set bin sizes showing size distributions of SVs. Bin sizes can easily be configured to match specific desires (lines 84 and 87 of [plot_structuralvariants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/plot_structuralvariants.R)). y-axis depicts the actual number (n) of variants residing in each bin and bins are shown along the x-axis.
 ![sv_binned](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_sv_binned.png)
 
 #### Circos Plot
-Ideogram with cytogentic bands visualized as a circos plot. Each variant sub type is shown as its own individual track (colors follow the same pattern as for violin and chromosome distribution plots). User can also supplly additional BED-tracks to visualize any genomic feature of interest (e.g specific genomic regions, medically relevant genes, etc). In order to use this feature, the user needs to specify additional BED-tracks on line 179 and 215 of [plot_structuralvariants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/plot_structuralvariants.R). For additional functions and features please see [Rciorcos documentation](https://cran.r-project.org/web/packages/RCircos/vignettes/Using_RCircos.pdf)
+Ideogram with cytogentic bands visualized as a circos plot. Each variant sub type is shown as its own individual track (colors follow the same pattern as for violin and chromosome distribution plots). User can also supply additional BED-tracks to visualize any genomic feature of interest (e.g specific genomic regions, medically relevant genes, etc). In order to use this feature, the user needs to specify additional BED-tracks on line 179 and 215 of [plot_structuralvariants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/plot_structuralvariants.R). For additional functions and features please see [Rciorcos documentation](https://cran.r-project.org/web/packages/RCircos/vignettes/Using_RCircos.pdf)
 ![sv_circos](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_circos.png)
 
 #### Tables and Summaries
+Summaries are exported as png files and located in out/fig. In addition to summary figures tables are also generated. These include: 
+
+   * VCF header (previously exported).
+   * non-structural variants - text file annotating all variants < 50 bp.
+   * Spreadsheet (.xlsx) with different pages for each metric and subset
+   * BED formatted txt file with *chr | start | end | lenght | sv type | sv family | genotype*
 
 ### Small Variants
 #### Small variants Size Distribution
