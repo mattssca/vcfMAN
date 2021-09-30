@@ -14,9 +14,9 @@ Pipeline consists of scripts (R and bash) for processing Variant Call Format (VC
 ## Flowchart
 Overview of associated processes and workflow described in vcfMAN.
 
-1. vcf_man.sh acts as a master script and calls appropiate scripts based on the user input (SVs, small variants or both)
-2. 01-gunzip.sh (unpacksmallvariants.sh and unpackSVs.sh) checks if input VCFs are compressed with Gzip, if so, VCF files are extracted from compressed format.
-3. 02-read_vcf.R (read_vcf_smallvariants.R and read_vcf_structuralvaiants.R) initially performs data wrangling associated tasks in order to extract relevant information from input files. This is done a few different steps. The steps are;
+1. [vcf_man.sh](https://github.com/mattssca/vcfMAN/blob/main/vcf_man.sh) acts as a master script and calls appropiate scripts based on the user input (SVs, small variants or both)
+2. 01-gunzip.sh ([unpacksmallvariants.sh](https://github.com/mattssca/vcfMAN/blob/main/scripts/unpacksmallvariants.sh) and [unpackSVs.sh](https://github.com/mattssca/vcfMAN/blob/main/scripts/unpackSVs.sh)) checks if input VCFs are compressed with Gzip, if so, VCF files are extracted from compressed format.
+3. 02-read_vcf.R ([read_vcf_smallvariants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/read_vcf_smallvariants.R) and [read_vcf_structuralvaiants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/read_vcf_structuralvariants.R)) initially performs data wrangling associated tasks in order to extract relevant information from input files. This is done a few different steps. The steps are;
 
    * List VCf files located in /in folder. Strips the path and saves the sample name as a variable.
    * Read listed VCF files into the R environment, skipping header (header is being extracted and saved in /out folder).
@@ -36,7 +36,7 @@ Overview of associated processes and workflow described in vcfMAN.
    * Summary metrics are generated and exported.
    * Summary tables is printed to console and exported as .png.
    
-04. 03-plot.R (plot_smallvariants.R and plot_structuralvariants.R) main plotting scripts utilizing R base functions as well as thirdparty R packages (listed in dependencies) to generate all associated plots.
+04. 03-plot.R ([plot_smallvariants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/plot_smallvariants.R) and [plot_structuralvariants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/plot_structuralvariants.R)) main plotting scripts utilizing R base functions as well as thirdparty R packages (listed in dependencies) to generate all associated plots.
 05. 04-img.sh (img_man_smallvariants.sh, img_man_structuralvariants.sh and img_man_combine.sh) are called to format variant reports in pdf. Scripts are combining tables and figures to a standardized report that can be used for interrogating call-set quality and varaint distributions.
   
 ![flowchart](https://github.com/mattssca/vcfMAN/blob/main/example_figures/flowchart.png)
@@ -50,12 +50,15 @@ Violin plot visualizing size distributions of SVs (deletions, duplications and i
 ![sv_size_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_sv_size_violin.png)
 
 #### SV Distribution per Chromosome (stacked)
+Stacked histogram depicting variant distributions in chromosome-dependent manner. Y-axis shows number of variants (n) and chromosomes are arranged on the x-axis. Note, certain chromosomes (e.g chr2, chr16 and chr19) typically shows higher fractions of SVs compared to other chromosomes. This is typically related to complex and difficult to map regions (segmental duplications, homypolymeres and long repetitive sequences) that are shown to be enriched for SVs (ref: Multiplatform paper HGSV Chaisson et al.)
 ![sv_chrdist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_sv_chrdist.png)
 
 #### Binned SV Sizes
+Histogram with set bin sizes showing size distributions of SVs. Bin sizes can easily be configured to match specific desires (lines 84 and 87 of [plot_structuralvariants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/plot_structuralvariants.R)). Y-axis depicts the actual number (n) of variants residing in each bin and bins are shown along the x-axis.
 ![sv_binned](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_sv_binned.png)
 
 #### Circos Plot
+Ideogram with cytogentic bands visualized as a circos plot. Each variant sub type is shown as its own individual track (colors follow the same pattern as for violin and chromosome distribution plots). User can also supplly additional BED-tracks to visualize any genomic feature of interest (e.g specific genomic regions, medically relevant genes, etc). In order to use this feature, the user needs to specify additional BED-tracks on line 179 and 215 of [plot_structuralvariants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/plot_structuralvariants.R). For additional functions and features please see [Rciorcos documentation](https://cran.r-project.org/web/packages/RCircos/vignettes/Using_RCircos.pdf)
 ![sv_circos](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_circos.png)
 
 #### Tables and Summaries

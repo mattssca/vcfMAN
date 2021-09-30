@@ -176,6 +176,8 @@ sv_dup_bed = filter(sv_calls, sv_fam == "dup") %>%
 sv_ins_bed = filter(sv_calls, sv_fam == "ins") %>% 
   select(chr, start, end)
 
+#user input of additional BED-tracks goes here and data set needs to be added on line 215, for more info see documentation of Rcircos
+
 #define reference build
 data(UCSC.HG38.Human.CytoBandIdeogram)
 
@@ -209,6 +211,8 @@ RCircos.Tile.Plot(sv_dup_bed, track.num = 2, side = "in")
 rcircos.params$track.background = "wheat4"
 RCircos.Reset.Plot.Parameters(rcircos.params)
 RCircos.Tile.Plot(sv_ins_bed, track.num = 3, side = "in")
+
+#additional genomic features
 
 #finish
 whatever <- dev.off()
