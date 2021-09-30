@@ -97,6 +97,7 @@ Summaries are exported as png files and located in out/amll_variants/fig. In add
 
 ## Dependencies
 Pipeline is designed to work on MacOSX systems. Disclaimer, pipeline has not been tested on either Windows or Linux systems.
+In order to install all dependencies, execute [install.dep.sh](https://github.com/mattssca/vcfMAN/blob/main/install_dep.sh)
 
 | Package | Enviroment | Version |
 | ------- | ---------- | ------- |

@@ -1,0 +1,2 @@
+### IDEO   
+Sub directory for dependencies related to constructing ideograms. Provided files are in respect to grch389. Chromosome coordinates are located in /chrtable and excluded regions are listed in /centromeres.
