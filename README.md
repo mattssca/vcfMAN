@@ -62,7 +62,7 @@ Ideogram with cytogentic bands visualized as a circos plot. Each variant sub typ
 ![sv_circos](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_circos.png)
 
 #### Tables and Summaries
-Summaries are exported as png files and located in out/fig. In addition to summary figures tables are also generated. These include: 
+Summaries are exported as png files and located in out/SVs/fig. In addition to summary figures, tables are also generated. These include: 
 
    * VCF header (previously exported).
    * non-structural variants - text file annotating all variants < 50 bp.
@@ -71,18 +71,29 @@ Summaries are exported as png files and located in out/fig. In addition to summa
 
 ### Small Variants
 #### Small variants Size Distribution
+Violin plot visualizing size distributions of small variants (i.g deletions and duplications) with SNVs excluded. Variant sizes in log10 scale on y-axis and small variant sub type on x-axis. Black dot annotates mean variant size. 
 ![small_variants_size_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_size_violin.png)
 
 #### SNV Distribution per Chromosome
+Histogram showing the number of SNVs sorted on chromosome with chromosomes on the y-axis and number of SNVs on the x-axis.
 ![small_variants_chrdist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_snv_chr_dist.png)
 
 #### SNV Distance
+Plot showing the distribution of distances between neighboring SNVs with SNV distances above 3rd quantile excluded, to compensate for variants with exceptionally long distance between each other (e.g variants on opposite sides of the same centromere). Mean SNV distance for each chromosome is shown with black line inside each box. Metric can be used to understand the breadth (coverage) of called SNVs compared to an expected output (SNV occurs on average every 1000 nucleotide). Plot also shows if any chromosome shows an increase or decrease of SNVs compared to other chromosmes (i.e even distribution of variants).
 ![small_variants_snv_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_snv_distance.png)¨
 
 #### SNV Ideogram
+Horizontally alligned ideogram highlighting SNVs in a genomic context. Plot makes use of chromosome lenghts located in dep/ folder. Currently all coordinates are in respect to grch38 and regions excluded (centromeres) are also in refernce to the same build. Tables can be customized to accomodate for other versions of the reference genome, as well as blacklsited regions can also be added to further exclude specific genomic regions.
 ![snv_ideogram](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_ideogram.png)
 
 #### Tables and Summaries
+Summaries are exported as png files and located in out/amll_variants/fig. In addition to summary figures, tables are also generated. These include: 
+
+   * VCF header (previously exported).
+   * non-small variants variants - text file annotating all variants > 50 bp.
+   * non-hardcoded genotypes (i.e 1|2, 2|1) - text file
+   * Spreadsheet (.xlsx) with different pages for each metric and subset
+   * BED formatted txt file with *chr | start | end | lenght | sv type | genotype*
 
 ## Dependencies
 Pipeline is designed to work on MacOSX systems. Disclaimer, pipeline has not been tested on either Windows or Linux systems.
