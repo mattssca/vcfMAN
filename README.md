@@ -14,7 +14,7 @@ Pipeline consists of scripts (R and bash) for processing Variant Call Format (VC
 ## Flowchart
 Overview of associated processes and workflow described in vcfMAN.
 
-1. [vcf_man.sh](https://github.com/mattssca/vcfMAN/blob/main/vcf_man.sh) acts as a master script and calls appropiate scripts based on the user input (SVs, small variants or both)
+1. vcfMAN.sh ([vcf_man.sh](https://github.com/mattssca/vcfMAN/blob/main/vcf_man.sh)) acts as a master script and calls appropiate scripts based on the user input (SVs, small variants or both)
 2. 01-gunzip.sh ([unpacksmallvariants.sh](https://github.com/mattssca/vcfMAN/blob/main/scripts/unpacksmallvariants.sh) and [unpackSVs.sh](https://github.com/mattssca/vcfMAN/blob/main/scripts/unpackSVs.sh)) checks if input VCFs are compressed with Gzip, if so, VCF files are extracted from compressed format.
 3. 02-read_vcf.R ([read_vcf_smallvariants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/read_vcf_smallvariants.R) and [read_vcf_structuralvaiants.R](https://github.com/mattssca/vcfMAN/blob/main/scripts/read_vcf_structuralvariants.R)) initially performs data wrangling associated tasks in order to extract relevant information from input files. This is done a few different steps. The steps are;
 
