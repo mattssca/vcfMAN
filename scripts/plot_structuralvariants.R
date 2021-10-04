@@ -83,11 +83,31 @@ sv_calls_pie$percentage = ((sv_calls_pie$count / sv_n) * 100)
 #set up cut-off values 
 breaks <- c(1, 10, 50, 100, 500, 1000, 10000, 100000, 1000000)
 
+#subset dataframe on sv subtype
+sv_del_tags = filter(sv_calls, sv_fam == "del")
+sv_dup_tags = filter(sv_calls, sv_fam == "dup")
+sv_ins_tags = filter(sv_calls, sv_fam == "ins")
+
 #specify interval/bin labels
 tags <- c("1-10bp","10bp-50bb", "50bp-100bp", "100bp-500bp", "500bp-1kb", "1kb-10kb", "10kb-100kb", "100kb-1mb")
 
 #bucketing values into bins
-sv_tags <- cut(sv_calls$sv_length, breaks=breaks, include.lowest=TRUE, right=FALSE, labels=tags)
+sv_tags_del <- cut(sv_del_tags$sv_length, breaks= breaks, include.lowest = TRUE, right = FALSE, labels = tags)
+sv_tags_dup <- cut(sv_dup_tags$sv_length, breaks = breaks, include.lowest = TRUE, right = FALSE, labels = tags)
+sv_tags_ins <- cut(sv_ins_tags$sv_length, breaks = breaks, include.lowest = TRUE, right = FALSE, labels = tags)
+
+#convert into tibble
+sv_tags_del = as_tibble(sv_tags_del)
+sv_tags_dup = as_tibble(sv_tags_dup)
+sv_tags_ins = as_tibble(sv_tags_ins)
+
+#add column for sv type
+sv_tags_del = cbind(sv_tags_del, type = "Deletion")
+sv_tags_dup = cbind(sv_tags_dup, type = "Duplication")
+sv_tags_ins = cbind(sv_tags_ins, type = "Insertion")
+
+#rbind all
+sv_tags_all = rbind(sv_tags_del, sv_tags_dup, sv_tags_ins)
 
 #genotype box
 #create summary table
@@ -143,8 +163,8 @@ sv_chrdist_box = ggplot(sv_calls.count, aes(x = chr, y = n, fill = sv_fam)) +
   scale_y_continuous(breaks = seq(0, ymax, by = 2))
 
 #binned sv size
-sv_binned = ggplot(data = as_tibble(sv_tags), mapping = aes(x=value)) + 
-  geom_bar(fill = "#48727D") + 
+sv_binned = ggplot(data = sv_tags_all, mapping = aes(x=value, fill = type)) + 
+  geom_bar(position="dodge") +
   theme(axis.title.x = element_blank()) +
   labs(title = plot.title.binned, y = y.axis.name.binned, fill = "")
 
