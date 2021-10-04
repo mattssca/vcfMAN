@@ -310,8 +310,8 @@ sv_size_violine = ggplot(sv_deldup, aes(x = sv_type, y = sv_length, fill = sv_ty
   labs(title = "Small Variants Size Distribution", x = "", y = "Size (bp)") +
   geom_violin(trim = FALSE, scale = "width", color = NA) +
   stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
-  theme(legend.position = "none") +
-  scale_y_log10()
+  scale_y_continuous(breaks = seq(0, 50, by = 10)) +
+  theme(legend.position = "none")
 
 #chromosome distribution box plot
 snv_chrdist_box = ggplot(snvs_count, aes(x = chr, y = n)) +
