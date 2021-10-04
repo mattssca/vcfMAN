@@ -328,7 +328,7 @@ sv_size_violine = ggplot(sv_deldup, aes(x = sv_type, y = sv_length, fill = sv_ty
 
 #chromosome distribution box plot
 snv_chrdist_box = ggplot(snvs_count, aes(x = chr, y = n)) +
-  labs(title = "SNV per Chromosome", subtitle = "Ref: 1 SNV Every 1000bp",x = "", y = "Count (n)", fill = "") +
+  labs(title = "SNV per Chromosome", subtitle = "Expectd SNV frequency is 1 SNV per every 1.2Kb",x = "", y = "Count (n)", fill = "") +
   scale_x_discrete(limits=c("chr22", "chr21", "chr20", "chr19", "chr18", "chr17", "chr16", "chr15", "chr14", "chr13", "chr12", "chr11", "chr10", "chr9", "chr8", "chr7", "chr6", "chr5", "chr4", "chr3", "chr2", "chr1")) +
   geom_bar(position = "stack", stat = "identity", fill = "#3BA87B", width = 0.5) +
   coord_flip()
