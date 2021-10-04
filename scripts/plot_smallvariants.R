@@ -193,6 +193,18 @@ snv_dist_df = rbind(snv_chr1, snv_chr2, snv_chr3, snv_chr4, snv_chr5, snv_chr6, 
 
 #calculate Q3 (to omit outliers)
 quant3 = quantile(snv_dist_df$snv_distance, probs = 0.75)
+q3_out = as.integer(quant3)
+snv_distance_long = snv_dist_df %>% 
+  filter(snv_distance> q3_out)
+n_filtered_snv = nrow(snv_distance_long)
+
+cat ("\n        Cut-off value (outliers, >q3) for SNV distances:")
+q3_out
+cat ("\n        Number of SNVs removed (>q3):")
+n_filtered_snv
+
+snv_distance_long = snv_dist_df %>% 
+  filter(snv_distance> q3_out)
 
 #chrdist
 #subset dataframe on sv subtype
@@ -312,6 +324,8 @@ sv_size_violine = ggplot(sv_deldup, aes(x = sv_type, y = sv_length, fill = sv_ty
   stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
   scale_y_continuous(breaks = seq(0, 50, by = 10)) +
   theme(legend.position = "none")
+
+sv_size_violine
 
 #chromosome distribution box plot
 snv_chrdist_box = ggplot(snvs_count, aes(x = chr, y = n)) +
