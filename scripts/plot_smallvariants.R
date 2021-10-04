@@ -362,7 +362,7 @@ chr1.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr1 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr1 ", size = 8)
 
 chr2.ideo = ggplot() +
   #chr table
@@ -377,7 +377,7 @@ chr2.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr2 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr2 ", size = 8)
 
 chr3.ideo = ggplot() +
   #chr table
@@ -392,7 +392,7 @@ chr3.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr3 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr3 ", size = 8)
 
 chr4.ideo = ggplot() +
   #chr table
@@ -407,7 +407,7 @@ chr4.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr4 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr4 ", size = 8)
 
 chr5.ideo = ggplot() +
   #chr table
@@ -422,7 +422,7 @@ chr5.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr5 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr5 ", size = 8)
 
 chr6.ideo = ggplot() +
   #chr table
@@ -437,7 +437,7 @@ chr6.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr6 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr6 ", size = 8)
 
 chr7.ideo = ggplot() +
   #chr table
@@ -452,7 +452,7 @@ chr7.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr7 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr7 ", size = 8)
 
 chr8.ideo = ggplot() +
   #chr table
@@ -467,7 +467,7 @@ chr8.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr8 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr8 ", size = 8)
 
 chr9.ideo = ggplot() +
   #chr table
@@ -482,7 +482,7 @@ chr9.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr9 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr9 ", size = 8)
 
 chr10.ideo = ggplot() +
   #chr table
@@ -497,7 +497,7 @@ chr10.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr10 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr10 ", size = 8)
 
 chr11.ideo = ggplot() +
   #chr table
@@ -512,7 +512,7 @@ chr11.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr11 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr11 ", size = 8)
 
 chr12.ideo = ggplot() +
   #chr table
@@ -527,7 +527,7 @@ chr12.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr12 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr12 ", size = 8)
 
 chr13.ideo = ggplot() +
   #chr table
@@ -542,7 +542,7 @@ chr13.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr13 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr13 ", size = 8)
 
 chr14.ideo = ggplot() +
   #chr table
@@ -557,7 +557,7 @@ chr14.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr14 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr14 ", size = 8)
 
 chr15.ideo = ggplot() +
   #chr table
@@ -572,7 +572,7 @@ chr15.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr15 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr15 ", size = 8)
 
 chr16.ideo = ggplot() +
   #chr table
@@ -587,7 +587,7 @@ chr16.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr16 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr16 ", size = 8)
 
 chr17.ideo = ggplot() +
   #chr table
@@ -602,7 +602,7 @@ chr17.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr17 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr17 ", size = 8)
 
 chr18.ideo = ggplot() +
   #chr table
@@ -617,7 +617,7 @@ chr18.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr18 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr18 ", size = 8)
 
 chr19.ideo = ggplot() +
   #chr table
@@ -632,7 +632,7 @@ chr19.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr19 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr19 ", size = 8)
 
 chr20.ideo = ggplot() +
   #chr table
@@ -647,7 +647,7 @@ chr20.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr20 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr20 ", size = 8)
 
 chr21.ideo = ggplot() +
   #chr table
@@ -662,7 +662,7 @@ chr21.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr21 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr21 ", size = 8)
 
 chr22.ideo = ggplot() +
   #chr table
@@ -677,7 +677,7 @@ chr22.ideo = ggplot() +
   xlab("") +
   ylim(-70, 70) +
   xlim(-15000000, 248956422) +
-  annotate(geom = "text", x = -15000000, y = 0, label="chr22 ", color="black", size = 8)
+  annotate(geom = "text", x = -15000000, y = 0, label="chr22 ", size = 8)
 
 #plot title
 text.ideo = "SNV ideogram"
@@ -699,9 +699,9 @@ refN = sum(vcf_refcount$refcount)
 
 #plot title with subtitles
 plot.title.ideo = ggplot() + 
-  annotate("text", x = 1, y = 10, size = 10, color = "black", label = text.ideo, fontface = "bold", hjust = 0) +
-  annotate("text", x = 1, y = 6, size = 8, color = "black", label = paste0("SNV coverage (SNV/nucleotides): ", snv_cov), hjust = 0) +
-  annotate("text", x = 1, y = 3, size = 8, color = "black", label = paste0("Number of reference (REF) nucleotides in VCF: ", refN), hjust = 0) +
+  annotate("text", x = 1, y = 10, size = 10, label = text.ideo, fontface = "bold", hjust = 0) +
+  annotate("text", x = 1, y = 6, size = 8, label = paste0("SNV coverage (SNV/nucleotides): ", snv_cov), hjust = 0) +
+  annotate("text", x = 1, y = 3, size = 8, label = paste0("Number of reference (REF) nucleotides in VCF: ", refN), hjust = 0) +
   xlim(0, 100) +
   ylim(0,20) +
   theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.line.x = element_blank(), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank())
