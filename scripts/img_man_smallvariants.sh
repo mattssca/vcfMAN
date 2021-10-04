@@ -28,7 +28,7 @@ convert out/small_variants/figs/ideograms/chr19.png -crop 3036x193+132+415 out/s
 convert out/small_variants/figs/ideograms/chr20.png -crop 3036x193+132+415 out/small_variants/figs/ideograms/chr20.png
 convert out/small_variants/figs/ideograms/chr21.png -crop 3036x193+132+415 out/small_variants/figs/ideograms/chr21.png
 convert out/small_variants/figs/ideograms/chr22.png -crop 3036x193+132+415 out/small_variants/figs/ideograms/chr22.png
-convert out/small_variants/figs/ideograms/plot.title.png -crop 7460x354+300+0 -quiet out/small_variants/figs/ideograms/plot.title.png 
+convert out/small_variants/figs/ideograms/plot.title.png -crop 9448x700+0+221 -quiet out/small_variants/figs/ideograms/plot.title.png 
 
 # compile ideograms fro chr 1-12
 convert out/small_variants/figs/ideograms/chr1.png out/small_variants/figs/ideograms/chr2.png out/small_variants/figs/ideograms/chr3.png out/small_variants/figs/ideograms/chr4.png out/small_variants/figs/ideograms/chr5.png out/small_variants/figs/ideograms/chr6.png out/small_variants/figs/ideograms/chr7.png out/small_variants/figs/ideograms/chr8.png out/small_variants/figs/ideograms/chr9.png out/small_variants/figs/ideograms/chr10.png out/small_variants/figs/ideograms/chr11.png out/small_variants/figs/ideograms/chr12.png out/small_variants/figs/*_box2.png -append -quiet out/small_variants/figs/ideograms/1-12.ideogram.png
@@ -46,7 +46,7 @@ convert out/small_variants/figs/ideograms/plot.title.png out/small_variants/figs
 convert -resize 4200 -quality 10 out/small_variants/figs/ideograms/ideogram.png out/small_variants/figs/ideograms/ideogram.png
 
 #compile report
-convert out/small_variants/figs/*_header.png out/small_variants/out1.png out/small_variants/figs/*_box2.png out/small_variants/out2.png out/small_variants/figs/*_box2.png out/small_variants/out3.png out/small_variants/figs/*_box2.png out/small_variants/figs/*_02_snv_distance.png out/small_variants/figs/*_box2.png out/small_variants/figs/ideograms/ideogram.png out/small_variants/figs/*_box2.png -append out/small_variants/report.png
+convert out/small_variants/figs/*_header.png out/small_variants/out1.png out/small_variants/figs/*_box2.png out/small_variants/out2.png out/small_variants/figs/*_box2.png out/small_variants/out3.png out/small_variants/figs/*_box2.png out/small_variants/figs/*_02_snv_distance.png out/small_variants/figs/ideograms/ideogram.png out/small_variants/figs/*_box2.png -append out/small_variants/report.png
 
 #delete unused files
 rm out/small_variants/out1.png
