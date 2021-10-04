@@ -50,7 +50,7 @@ Violin plot visualizing size distributions of SVs (deletions, duplications and i
 ![sv_size_dist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_sv_size_violin.png)
 
 #### SV Distribution per Chromosome (stacked)
-Stacked histogram depicting variant distributions in chromosome-dependent manner. Y-axis shows number of variants (n) and chromosomes are arranged on the x-axis. Note, certain chromosomes (e.g chr2, chr16 and chr19) typically shows higher fractions of SVs compared to other chromosomes. This is typically related to complex and difficult to map regions (segmental duplications, homypolymeres and long repetitive sequences) that are shown to be enriched for SVs (ref: Multiplatform paper HGSV Chaisson et al.)
+Stacked histogram depicting variant distributions in chromosome-dependent manner. Y-axis shows number of variants (n) and chromosomes are arranged on the x-axis. Note, certain chromosomes (e.g chr2, chr16 and chr19) typically shows higher fractions of SVs compared to other chromosomes. This is typically related to complex and difficult to map regions (segmental duplications, homypolymeres and long repetitive sequences) that are shown to be enriched for SVs (Chaisson, Mark J P et al. “Multi-platform discovery of haplotype-resolved structural variation in human genomes.” Nature communications vol. 10,1 1784. 16 Apr. 2019, doi:10.1038/s41467-018-08148-z)
 ![sv_chrdist](https://github.com/mattssca/vcfMAN/blob/main/example_figures/SV/example_SV_figure_sv_chrdist.png)
 
 #### Binned SV Sizes
