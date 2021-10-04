@@ -325,8 +325,6 @@ sv_size_violine = ggplot(sv_deldup, aes(x = sv_type, y = sv_length, fill = sv_ty
   scale_y_continuous(breaks = seq(0, 50, by = 10)) +
   theme(legend.position = "none")
 
-sv_size_violine
-
 #chromosome distribution box plot
 snv_chrdist_box = ggplot(snvs_count, aes(x = chr, y = n)) +
   labs(title = "SNV per Chromosome", subtitle = "Ref: 1 SNV Every 1000bp",x = "", y = "Count (n)", fill = "") +
@@ -680,10 +678,31 @@ chr22.ideo = ggplot() +
   xlim(-15000000, 248956422) +
   annotate(geom = "text", x = -15000000, y = 0, label="chr22 ", color="black", size = 8)
 
-# plot title
+#plot title
 text.ideo = "SNV ideogram"
+
+#calculate snv coverage (subtitle 1)
+snv_cov = (sum(snvs_count$n) / 3088269832) * 100
+snv_cov = format(round(snv_cov, 5), nsmall = 5)
+
+#caculate refN (subtitle 2)
+#read vcf into r
+vcf.list = list.files(path = "in/small_variants/", recursive = TRUE, pattern = "\\.vcf$", full.names = TRUE)
+sample_name = gsub(".{4}$", '', vcf.list)
+sample_name = substring(sample_name, 20)
+vcf_refcount = read.table(file = paste0("in/small_variants/", sample_name, ".vcf"), sep = "\t", header = F, comment.char="#")
+
+#count nucleotides in ref 
+vcf_refcount$refcount = nchar(vcf_refcount$V4)
+refN = sum(vcf_refcount$refcount)
+
+#plot title with subtitles
 plot.title.ideo = ggplot() + 
-  annotate("text", x = 4, y = 25, size = 8, color = "black", label = text.ideo) +
+  annotate("text", x = 1, y = 10, size = 10, color = "black", label = text.ideo, fontface = "bold", hjust = 0) +
+  annotate("text", x = 1, y = 6, size = 8, color = "black", label = paste0("SNV coverage (SNV/nucleotides): ", snv_cov), hjust = 0) +
+  annotate("text", x = 1, y = 3, size = 8, color = "black", label = paste0("Number of reference (REF) nucleotides in VCF: ", refN), hjust = 0) +
+  xlim(0, 100) +
+  ylim(0,20) +
   theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.line.x = element_blank(), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank())
 
 #plot empty box for spacing
@@ -696,7 +715,7 @@ ggsave(sv_size_violine, file = paste0("out/small_variants/figs/", txtFileName, "
 ggsave(snv_distance_plot, file = paste0("out/small_variants/figs/", txtFileName, "_02_snv_distance.png"), limitsize = FALSE, width = 14, height = 7, units = c("in"), dpi = 300)
 ggsave(snv_chrdist_box, file = paste0("out/small_variants/figs/", txtFileName, "_03_snv_chr_dist.png"), limitsize = FALSE, width = 7, height = 7, units = c("in"), dpi = 300)
 ggsave(plot.title, file = paste0("out/small_variants/figs/", txtFileName, "_header.png"), limitsize = FALSE, width = 14, height = 1, units = c("in"), dpi = 300)
-ggsave("plot.title.png", plot.title.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 68.245, height = 3, units = c("cm"), dpi = 300)
+ggsave("plot.title.png", plot.title.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 80, height = 7.8, units = c("cm"), dpi = 300)
 ggsave("chr1.png", chr1.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
 ggsave("chr2.png", chr2.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
 ggsave("chr3.png", chr3.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
