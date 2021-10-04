@@ -202,6 +202,7 @@ cat ("\n        Cut-off value (outliers, >q3) for SNV distances:")
 q3_out
 cat ("\n        Number of SNVs removed (>q3):")
 n_filtered_snv
+cat ("\n")
 
 snv_distance_long = snv_dist_df %>% 
   filter(snv_distance> q3_out)
