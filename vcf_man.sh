@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "Usage: vcf_man.sh {small_variants|SVs|both}\n"
-echo "Example for small variants: vcf_man.sh small_variants\n"
-
 vcf="$1"
 
 if [ "$vcf" = "small_variants" ]; then
@@ -27,4 +24,6 @@ elif [ "$vcf" = "both" ]; then
   sh scripts/img_man_combine.sh
 else
   echo "Please enter a valid input\n"
+  echo "Usage: vcf_man.sh {small_variants|SVs|both}\n"
+  echo "Example for small variants: vcf_man.sh small_variants\n"
 fi
