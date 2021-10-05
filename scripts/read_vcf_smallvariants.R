@@ -23,6 +23,11 @@ txtFileName <- paste0(sample_name, "_vcf_man_", now)
 #read vcf into R (skip header)
 vcf = read.table(file = paste0("in/small_variants/", sample_name, ".vcf"), sep = "\t", header = F, comment.char="#")
 
+#drop chrX and Y
+vcf$V1 = as.factor(vcf$V1)
+vcf = filter(vcf, V1 == c("chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22")) 
+vcf = droplevels(vcf)
+
 #extract vcf head
 vcfHead = readLines(paste0("in/small_variants/", sample_name, ".vcf"))
 vcfHead = vcfHead[grep('^##.*', vcfHead)]
@@ -60,7 +65,7 @@ vcf_sub$sv_type = as.factor(vcf_sub$sv_type)
 vcf_sub$chr = as.factor(vcf_sub$chr)
 
 #subset on autosomes
-selected = paste0("chr", c(1:22, "X"))
+selected = paste0("chr", c(1:22))
 #selected = paste0("chr", c(1:22, "x,y"))
 vcf_sub = vcf_sub[vcf_sub$chr %in% selected,]
 
@@ -71,6 +76,19 @@ vcf_up = vcf_sub
 levels(vcf_sub$genotype)[levels(vcf_sub$genotype)=="1|1"] = "hom"
 levels(vcf_sub$genotype)[levels(vcf_sub$genotype)=="1|0"] = "het"
 levels(vcf_sub$genotype)[levels(vcf_sub$genotype)=="0|1"] = "het"
+
+#subset and remove non-hardcoded genotypes from main df
+non_hardc_gen.1 = filter(vcf_sub, genotype != "het")
+non_hardc_gen = filter(non_hardc_gen.1, genotype != "hom")
+
+#create variable for non-hardcoded genotypes and print n variants
+n_non_hardc_gen = nrow(non_hardc_gen)
+cat ("\n        Number of variants with non hardcoded genotype")
+n_non_hardc_gen
+
+#select harcoded genotypes
+vcf_sub = filter(vcf_sub, genotype == c("het", "hom"))
+vcf_sub = droplevels(vcf_sub)
 
 #replace end-coordinates for deletions with NA
 vcf_sub$end[which(vcf_sub$sv_type == "del")] = "NA"
@@ -92,19 +110,6 @@ vcf_sub = droplevels(vcf_sub[!vcf_sub$sv_type == "del",])
 vcf_sub = droplevels(vcf_sub[!vcf_sub$sv_type == "SNV",])
 vcf_sub = rbind(vcf_sub, sv_tmp_del, sv_tmp_snv)
 vcf_sub = vcf_sub[order(vcf_sub$chr, vcf_sub$start),]
-
-#subset and remove non-hardcoded genotypes from main df
-non_hardc_gen_2.1 = filter(vcf_sub, genotype == "2|1")
-non_hardc_gen_1.2 = filter(vcf_sub, genotype == "1|2")
-non_hardc_gen = rbind(non_hardc_gen_1.2, non_hardc_gen_2.1)
-
-#create variable for non-hardcoded genotypes and print n variants
-n_non_hardc_gen = nrow(non_hardc_gen)
-cat ("\n        Number of variants with non hardcoded genotype (2|1 and 1|2)")
-n_non_hardc_gen
-
-vcf_sub = subset(vcf_sub, genotype != "1|2")
-vcf_sub = subset(vcf_sub, genotype != "2|1")
 
 #subset variants larger than 50 bp
 vcf_sub_large = subset(vcf_sub, sv_length > 50)
@@ -137,17 +142,22 @@ vcf_up = vcf_up[order(vcf_up$chr, vcf_up$start),]
 
 vcf_up_large = subset(vcf_up, sv_length > 50)
 
-vcf_up = subset(vcf_up, genotype != "1|2")
-vcf_up = subset(vcf_up, genotype != "2|1")
+#select harcoded genotypes
+vcf_up = filter(vcf_up, genotype == c("1|1", "1|0", "0|1"))
+vcf_up = droplevels(vcf_up)
 
 vcf_up = subset(vcf_up, sv_length <= 50)
+
+#subset and 1,2 and 2,1 genotypes to put on report as table
+non_hardc_gen.table = filter(non_hardc_gen, genotype == c("1|2", "2|1"))
+non_hardc_gen.table = droplevels(non_hardc_gen.table)
 
 #tables
 #create data tables from input data
 type_tab = table1(~vcf_sub$sv_length | vcf_sub$sv_type, data = vcf_sub)
 gen_tab = table1(~vcf_sub$sv_length | vcf_sub$genotype, data = vcf_sub)
 large_tab = table1(~vcf_up_large$sv_length | vcf_up_large$sv_type, data = vcf_up_large)
-nongen_tab = table1(~non_hardc_gen$sv_type | non_hardc_gen$genotype, data = non_hardc_gen)
+nongen_tab = table1(~non_hardc_gen.table$sv_type | non_hardc_gen.table$genotype, data = non_hardc_gen.table)
 
 #transform data tables to data frames
 type_tab = as.data.frame(read_html(type_tab) %>% html_table(fill=TRUE))
@@ -181,8 +191,8 @@ lldel = filter(vcf_up_large, sv_type == "del") %>% nrow()
 lldup = filter(vcf_up_large, sv_type == "dup") %>% nrow()
 llall = nrow(vcf_up_large)
 
-l2_1 = filter(non_hardc_gen, genotype == "2|1") %>% nrow()
 l1_2 = filter(non_hardc_gen, genotype == "1|2") %>% nrow()
+l2_1 = filter(non_hardc_gen, genotype == "2|1") %>% nrow()
 lnongen = nrow(non_hardc_gen)
 
 #combine all lists
@@ -195,8 +205,8 @@ gen_tab[nrow(gen_tab) + 1,] = c("Genotypes", "Heterozygous", "Homozygous", "Tota
 large_tab[nrow(large_tab) + 1,] = c("n", lldup, lldel, llall)
 large_tab[nrow(large_tab) + 1,] = c("Variants > 50 bp", "Duplications", "Deletions", "All Variants")
 
-nongen_tab[nrow(nongen_tab) + 1,] = c("n", l2_1, l1_2, lnongen)
-nongen_tab[nrow(nongen_tab) + 1,] = c("Non-hardcoded Genotypes", "2|1", "1|2", "Total")
+nongen_tab[nrow(nongen_tab) + 1,] = c("n", l1_2, l2_1, lnongen)
+nongen_tab[nrow(nongen_tab) + 1,] = c("Non-hardcoded Genotypes", "1|2", "2|1", "Total")
 
 #rename variable names
 type_tab$MCT[1] = "Mean (SD)"

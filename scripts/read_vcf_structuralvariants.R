@@ -23,6 +23,11 @@ txtFileName <- paste0(sample_name, "_vcf_man_", now)
 #read vcf into R (skip header)
 vcf = read.table(file = paste0("in/SVs/", sample_name, ".vcf"), sep = "\t", header = F, comment.char="#")
 
+#drop chrX and Y
+vcf$V1 = as.factor(vcf$V1)
+vcf = filter(vcf, V1 == c("chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22")) 
+vcf = droplevels(vcf)
+
 #extract vcf head
 vcfHead = readLines(paste0("in/SVs/", sample_name, ".vcf"))
 vcfHead = vcfHead[grep('^##.*', vcfHead)]
@@ -78,6 +83,11 @@ levels(vcf_sub$sv_fam)[levels(vcf_sub$sv_fam)=="SIMPLEDEL"] = "del"
 levels(vcf_sub$sv_fam)[levels(vcf_sub$sv_fam)=="SUBSDEL"] = "del"
 levels(vcf_sub$sv_fam)[levels(vcf_sub$sv_fam)=="DUP"] = "dup"
 levels(vcf_sub$sv_fam)[levels(vcf_sub$sv_fam)=="SIMPLEINS"] = "ins"
+levels(vcf_sub$sv_fam)[levels(vcf_sub$sv_fam)=="SUBSINS"] = "ins"
+levels(vcf_sub$sv_fam)[levels(vcf_sub$sv_fam)=="ARTIFACT"] = "art"
+
+#drop artifacts
+vcf_sub = droplevels(vcf_sub[!vcf_sub$sv_fam == "art",])
 
 #transform end coordinates for deletions (+1)
 sv_tmp_del = filter(vcf_sub, sv_fam == "del")
@@ -177,7 +187,12 @@ levels(vcf_up$sv_fam)[levels(vcf_up$sv_fam)=="CONTRAC"] = "del"
 levels(vcf_up$sv_fam)[levels(vcf_up$sv_fam)=="SIMPLEDEL"] = "del"
 levels(vcf_up$sv_fam)[levels(vcf_up$sv_fam)=="SUBSDEL"] = "del"
 levels(vcf_up$sv_fam)[levels(vcf_up$sv_fam)=="DUP"] = "dup"
+levels(vcf_up$sv_fam)[levels(vcf_up$sv_fam)=="SUBSINS"] = "ins"
 levels(vcf_up$sv_fam)[levels(vcf_up$sv_fam)=="SIMPLEINS"] = "ins"
+levels(vcf_up$sv_fam)[levels(vcf_up$sv_fam)=="ARTIFACT"] = "art"
+
+#drop artifacts
+vcf_up = droplevels(vcf_up[!vcf_up$sv_fam == "art",])
 
 sv_tmp_del_up = filter(vcf_up, sv_fam == "del")
 sv_tmp_del_up$end = sv_tmp_del_up$start + 1
@@ -205,6 +220,11 @@ levels(vcf_sum_small$sv_fam)[levels(vcf_sum_small$sv_fam)=="SIMPLEDEL"] = "del"
 levels(vcf_sum_small$sv_fam)[levels(vcf_sum_small$sv_fam)=="SUBSDEL"] = "del"
 levels(vcf_sum_small$sv_fam)[levels(vcf_sum_small$sv_fam)=="DUP"] = "dup"
 levels(vcf_sum_small$sv_fam)[levels(vcf_sum_small$sv_fam)=="SIMPLEINS"] = "ins"
+levels(vcf_sum_small$sv_fam)[levels(vcf_sum_small$sv_fam)=="SUBSINS"] = "ins"
+levels(vcf_sum_small$sv_fam)[levels(vcf_sum_small$sv_fam)=="ARTIFACT"] = "art"
+
+#drop artifacts
+vcf_sum_small = droplevels(vcf_sum_small[!vcf_sum_small$sv_fam == "art",])
 
 #transform end coordinates for deletions (+1)
 sv_tmp_del = filter(vcf_sum_small, sv_fam == "del")

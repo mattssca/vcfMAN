@@ -11,6 +11,8 @@ elif [ "$vcf" = "SVs" ]; then
   sh scripts/unpackSVs.sh
   Rscript scripts/read_vcf_structuralvariants.R
   Rscript scripts/plot_structuralvariants.R
+  sh scripts/bedtools.sh
+  Rscript scripts/Rcircos.R
   sh scripts/img_man_structuralvariants.sh
 elif [ "$vcf" = "both" ]; then
   sh scripts/unpacksmallvariants.sh
@@ -19,6 +21,8 @@ elif [ "$vcf" = "both" ]; then
   Rscript scripts/read_vcf_structuralvariants.R
   Rscript scripts/plot_smallvariants.R
   Rscript scripts/plot_structuralvariants.R
+  sh scripts/bedtools.sh
+  Rscript scripts/Rcircos.R
   sh scripts/img_man_smallvariants.sh
   sh scripts/img_man_structuralvariants.sh
   sh scripts/img_man_combine.sh

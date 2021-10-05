@@ -6,7 +6,6 @@ suppressMessages(library(ggplot2))
 suppressMessages(library(dplyr))
 suppressMessages(library(ggthemr))
 suppressMessages(library(gridExtra))
-suppressMessages(library(RCircos))
 
 #get sample name
 vcf.list = list.files(path = "in/SVs/", recursive = TRUE, pattern = "\\.vcf$", full.names = TRUE)
@@ -160,7 +159,7 @@ sv_chrdist_box = ggplot(sv_calls.count, aes(x = chr, y = n, fill = sv_fam)) +
   scale_x_discrete(limits=c("chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22")) +
   geom_bar(position = "stack", stat = "identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_y_continuous(breaks = seq(0, ymax, by = 2))
+  scale_y_continuous(breaks = seq(0, ymax, by = 200))
 
 #binned sv size
 sv_binned = ggplot(data = sv_tags_all, mapping = aes(x=value, fill = type)) + 
@@ -196,46 +195,15 @@ sv_dup_bed = filter(sv_calls, sv_fam == "dup") %>%
 sv_ins_bed = filter(sv_calls, sv_fam == "ins") %>% 
   select(chr, start, end)
 
-#user input of additional BED-tracks goes here and data set needs to be added on line 215, for more info see documentation of Rcircos
+#sort
+sv_del_bed = sv_del_bed[order(sv_del_bed$chr, sv_del_bed$start),]
+sv_dup_bed = sv_dup_bed[order(sv_dup_bed$chr, sv_dup_bed$start),]
+sv_ins_bed = sv_ins_bed[order(sv_ins_bed$chr, sv_ins_bed$start),]
 
-#define reference build
-data(UCSC.HG38.Human.CytoBandIdeogram)
-
-#set core components
-RCircos.Set.Core.Components(cyto.info = UCSC.HG38.Human.CytoBandIdeogram, chr.exclude = c("chrX", "chrY"), tracks.inside = 3, tracks.outside = 0)
-
-#set plot parameters
-rcircos.params = RCircos.Get.Plot.Parameters()
-
-#define plotting parameters
-out.file = paste0("out/SVs/figs/", txtFileName, "_circos.pdf")
-pdf(out.file, height = 14, width = 14)
-par(mai=c(0.25, 0.25, 0.25, 0.25));
-plot.new();
-plot.window(c(-1.3, 1.3), c(-1.3, 1.3));
-
-#add tracks to plot
-RCircos.Chromosome.Ideogram.Plot()
-
-#del
-rcircos.params$track.background = "coral2"
-RCircos.Reset.Plot.Parameters(rcircos.params)
-RCircos.Tile.Plot(sv_del_bed, track.num = 1, side = "in")
-
-#dup
-rcircos.params$track.background = "sandybrown"
-RCircos.Reset.Plot.Parameters(rcircos.params)
-RCircos.Tile.Plot(sv_dup_bed, track.num = 2, side = "in")
-
-#ins
-rcircos.params$track.background = "wheat4"
-RCircos.Reset.Plot.Parameters(rcircos.params)
-RCircos.Tile.Plot(sv_ins_bed, track.num = 3, side = "in")
-
-#additional genomic features
-
-#finish
-whatever <- dev.off()
+#export bed file
+write.table(sv_del_bed, file = "out/SVs/tables/bed/sv_del.bed", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+write.table(sv_dup_bed, file = "out/SVs/tables/bed/sv_dup.bed", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+write.table(sv_ins_bed, file = "out/SVs/tables/bed/sv_ins.bed", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #export plots
 ggsave(sv_size_violine, file = paste0("out/SVs/figs/", txtFileName, "_02_sv_size_violin.png"), limitsize = FALSE, width = 7, height = 7, units = c("in"), dpi = 300)

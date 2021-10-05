@@ -351,11 +351,11 @@ plot.title = ggplot() +
 #plot ideograms
 chr1.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr1.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr1.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr1.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr1_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr1_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -366,11 +366,11 @@ chr1.ideo = ggplot() +
 
 chr2.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr2.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr2.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr2.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr2_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr2_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -381,11 +381,11 @@ chr2.ideo = ggplot() +
 
 chr3.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr3.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr3.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr3.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr3_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr3_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -396,11 +396,11 @@ chr3.ideo = ggplot() +
 
 chr4.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr4.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr4.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr4.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr4_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr4_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -411,11 +411,11 @@ chr4.ideo = ggplot() +
 
 chr5.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr5.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr5.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr5.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr5_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr5_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -426,11 +426,11 @@ chr5.ideo = ggplot() +
 
 chr6.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr6.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr6.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr6.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr6_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr6_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -441,11 +441,11 @@ chr6.ideo = ggplot() +
 
 chr7.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr7.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr7.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr7.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr7_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr7_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -456,11 +456,11 @@ chr7.ideo = ggplot() +
 
 chr8.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr8.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr8.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr8.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr8_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr8_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -471,11 +471,11 @@ chr8.ideo = ggplot() +
 
 chr9.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr9.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr9.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr9.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr9_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr9_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -486,11 +486,11 @@ chr9.ideo = ggplot() +
 
 chr10.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr10.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr10.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr10.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr10_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr10_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -501,11 +501,11 @@ chr10.ideo = ggplot() +
 
 chr11.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr11.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr11.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr11.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr11_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr11_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -516,11 +516,11 @@ chr11.ideo = ggplot() +
 
 chr12.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr12.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr12.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr12.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr12_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr12_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -531,11 +531,11 @@ chr12.ideo = ggplot() +
 
 chr13.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr13.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr13.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr13.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr13_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr13_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -546,11 +546,11 @@ chr13.ideo = ggplot() +
 
 chr14.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr14.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr14.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr14.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr14_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr14_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -561,11 +561,11 @@ chr14.ideo = ggplot() +
 
 chr15.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr15.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr15.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr15.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr15_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr15_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -576,11 +576,11 @@ chr15.ideo = ggplot() +
 
 chr16.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr16.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr16.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr16.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr16_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr16_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -591,11 +591,11 @@ chr16.ideo = ggplot() +
 
 chr17.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr17.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr17.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr17.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr17_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr17_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -606,11 +606,11 @@ chr17.ideo = ggplot() +
 
 chr18.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr18.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr18.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr18.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr18_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr18_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -621,11 +621,11 @@ chr18.ideo = ggplot() +
 
 chr19.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr19.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr19.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr19.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr19_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr19_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -636,11 +636,11 @@ chr19.ideo = ggplot() +
 
 chr20.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr20.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr20.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr20.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr20_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr20_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -651,11 +651,11 @@ chr20.ideo = ggplot() +
 
 chr21.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr21.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr21.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr21.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr21_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr21_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
@@ -666,11 +666,11 @@ chr21.ideo = ggplot() +
 
 chr22.ideo = ggplot() +
   #chr table
-  geom_segment(data = chr22.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "#6FB392", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
+  geom_segment(data = chr22.table, aes(x = V2, xend = V3, y = 0, yend = 0), color = "grey29", lineend = "butt", size = 10, stat = "identity", position = position_dodge()) +
   #centromere
   geom_segment(data = chr22.cent, aes(x = V2, xend = V3, y = 0, yend = 0), color = "white", size = 11, stat = "identity", position = position_dodge()) +
   #snvs
-  geom_segment(data = snv_chr22_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "black", size = 10, stat = "identity", position = position_dodge()) + 
+  geom_segment(data = snv_chr22_ideo, aes(x = start, xend = end, y = 0, yend = 0), color = "#6FB392", size = 10, stat = "identity", position = position_dodge()) + 
   #theme
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, hjust = 1, size = 25), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank(), plot.margin=unit(c(-0.35,0,-0.40,0.05), "null")) + 
   ylab("") + 
