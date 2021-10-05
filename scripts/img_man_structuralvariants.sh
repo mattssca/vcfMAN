@@ -15,5 +15,4 @@ rm out/SVs/figs/*_box2.png
 rm out/SVs/figs/*_header.png
 rm out/SVs/figs/circos.png
 
-echo "Summary report compiled...\n"
-echo "DONE!\n"
+echo "Summary report for Structural Variants (SVs) compiled...\n"
