@@ -1,4 +1,8 @@
+#load packages
 suppressMessages(library(RCircos))
+
+#remove warning messages
+options(warn=-1)
 
 #get sample name
 vcf.list = list.files(path = "in/SVs/", recursive = TRUE, pattern = "\\.vcf$", full.names = TRUE)

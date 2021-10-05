@@ -1,6 +1,9 @@
 #R script for processing VCF for large and Structural Variants (SVs).
 #author, Carl-Adam Mattsson. omYXX informatics.
 
+#remove warning messages
+options(warn=-1)
+
 #load packages
 suppressMessages(library(stringr))
 suppressMessages(library(dplyr))
