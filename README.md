@@ -7,8 +7,8 @@ Pipeline consists of scripts (R and bash) for processing Variant Call Format (VC
 3. Set directory as current directory: `cd vcfMAN-main/`
 4. Install dependencies: `sh install_dep.sh`
 5. Migrate VCF files (SVs/mall variants) to corresponding directory (pipeline also takes compressed VCF files in .gzip format)
-6. Execute master script with: `sh 01_vcf_man.sh`
-7. Software asks user to specify VCF input (SVs and small variants). Valid commands are; `SVs`, `small_variants` and `both`.
+6. Execute master script with: `sh vcf_man.sh` follwed by command line argument for input VCF file. Valid commands are; `SVs`, `small_variants` and `both`
+7. Example for running pipeline on small variant VCF `sh vcf_man.sh small_variants`
 8. Output files (figures, tables, summaries and reports) are generated and saved to corresponding output folder (out/SVs or out/small_variants)
 
 ## Flowchart
