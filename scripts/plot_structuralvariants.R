@@ -159,7 +159,7 @@ sv_chrdist_box = ggplot(sv_calls.count, aes(x = chr, y = n, fill = sv_fam)) +
   scale_x_discrete(limits=c("chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22")) +
   geom_bar(position = "stack", stat = "identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_y_continuous(breaks = seq(0, ymax, by = 10))
+  scale_y_continuous(breaks = seq(0, ymax, by = 200))
 
 #binned sv size
 sv_binned = ggplot(data = sv_tags_all, mapping = aes(x=value, fill = type)) + 
