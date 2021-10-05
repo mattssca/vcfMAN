@@ -80,5 +80,4 @@ rm out/small_variants/figs/ideograms/chr20.png
 rm out/small_variants/figs/ideograms/chr21.png
 rm out/small_variants/figs/ideograms/chr22.png
 
-echo "Summary report compiled...\n"
-echo "DONE!\n"
+echo "Summary report for small variants compiled...\n"
