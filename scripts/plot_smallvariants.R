@@ -320,16 +320,15 @@ chr22.cent = read.table("dep/ideograms/centromeres/GRCh38.chr22.centromeres.txt"
 
 #plot
 sv_size_violine = ggplot(sv_deldup, aes(x = sv_type, y = sv_length, fill = sv_type)) + 
-  labs(title = "Small Variants Size Distribution", x = "", y = "Size (bp)") +
+  labs(title = "Small Variants Size Distribution", subtitle = "Violin plot visualizing size-distributions for small variants (i.g deletions & duplications\n≤ 50bp) with SNVs excluded. Variant size (1-50bp) are arranged on the y-axis and\nvariant sub-type on the x-axis. Black dot annotates mean variant-size.", x = "", y = "Size (bp)") +
   geom_violin(trim = FALSE, scale = "width", color = NA) +
   stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
   scale_y_continuous(breaks = seq(0, 50, by = 10)) +
-  theme(legend.position = "none", plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
-  scale_y_log10() 
+  theme(legend.position = "none", plot.margin=unit(c(0,1.3,0,1.3),"cm"))
 
 #chromosome distribution box plot
 snv_chrdist_box = ggplot(snvs_count, aes(x = chr, y = n)) +
-  labs(title = "SNV per Chromosome", subtitle = "Expectd SNV frequency is 1 SNV per every 1.2Kb",x = "", y = "Count (n)", fill = "") +
+  labs(title = "SNV per Chromosome", subtitle = "Flipped histogram, showing the number of SNVs per chromosome.\nChromosomes are plotted on the y-axis and number of SNVs on the x-axis.\nExpected SNV frequency is on average 1 variant for every 1200 bases.\nExpected variant frequency for each chromosome are highlighted with grey dots.\n(Chaisson, Mark J P et al. “Multi-platform discovery of haplotype-resolved\nstructural variation in human genomes.”).", x = "", y = "Count (n)", fill = "") +
   scale_x_discrete(limits=c("chr22", "chr21", "chr20", "chr19", "chr18", "chr17", "chr16", "chr15", "chr14", "chr13", "chr12", "chr11", "chr10", "chr9", "chr8", "chr7", "chr6", "chr5", "chr4", "chr3", "chr2", "chr1")) +
   geom_bar(position = "stack", stat = "identity", fill = "#6FB392", width = 0.5) +
   theme(plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
@@ -338,7 +337,7 @@ snv_chrdist_box = ggplot(snvs_count, aes(x = chr, y = n)) +
 #density plot of SNV distances
 snv_distance_plot = ggplot(snv_dist_df, aes(x = chr, y = snv_distance)) +
   geom_boxplot(outlier.shape = NA, fill = "#6FB392") + 
-  labs(title = "SNV Distance", x = "", y = "Distance (bp)", fill = "") +
+  labs(title = "SNV Distance", subtitle = "Histogram showing the distribution of distances between neighboring SNVs. SNV-distances above the 3rd quantile are excluded, to compensate for neighbouring variants with exceptionally\nlong distance between each other (e.g variants on opposite sides of the same centromere). Mean SNV distance for each chromosome is shown with black line inside each box.\nMetric can be used to interrogate the breadth of called SNVs compared to an expected frequency (SNV occurs on average every 1200 nucleotide). Chromosomes with a strong deviation\nfrom the sample-specific average SNV-distance will be highlited, revealing if SNV-calling is skewed towards certain chromosomes.", x = "", y = "Distance (bp)", fill = "") +
   scale_x_discrete(limits=c("chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22")) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none", plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
   ylim(0, quant3)
