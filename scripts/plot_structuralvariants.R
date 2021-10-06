@@ -147,15 +147,15 @@ ggthemr("dust")
 
 #violin plot
 sv_size_violine = ggplot(sv_calls, aes(x = sv_fam, y = sv_length, fill = sv_fam)) + 
-  labs(title = plot.title.violin, x = "", y = y.axis.name.violin) +
+  labs(title = plot.title.violin, subtitle = "Violin plot visualizing SV size-distribution. Variant size in log10 scale on y-axis and SV sub-types (deletions, duplications and insertions) on x-axis. Black dot\nannotates mean variant-size.", x = "", y = y.axis.name.violin) +
   geom_violin(trim = FALSE, scale = "width", color = NA) +
   stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
   theme(legend.position = "none", plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
-  scale_y_log10() 
+  scale_y_log10()
 
 #chromosome distribution box plot
 sv_chrdist_box = ggplot(sv_calls.count, aes(x = chr, y = n, fill = sv_fam)) +
-  labs(title = plot.title.chrbox, x = "", y = y.axis.name.chrbox, fill = "") +
+  labs(title = plot.title.chrbox, subtitle = "Stacked histogram showing SV type distribution sorted on chromosome. Y-axis describes number of variants (n) and chromosomes are arranged along the x-axis. Note, certain\nchromosomes (e.g chr2, chr16 and chr19) typically shows higher fractions of SVs compared to other chromosomes. This is generally explained by certain chromosomes harbouring\nnumerous complex and difficult-to-map (e.g segmental duplications and homypolymeres) that are shown to be enriched for SVs (Chaisson, Mark J P et al. “Multi-platform discovery\nof haplotype-resolved structural variation in human genomes.”)",x = "", y = y.axis.name.chrbox, fill = "") +
   scale_x_discrete(limits=c("chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22")) +
   geom_bar(position = "stack", stat = "identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1), plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
@@ -164,8 +164,8 @@ sv_chrdist_box = ggplot(sv_calls.count, aes(x = chr, y = n, fill = sv_fam)) +
 #binned sv size
 sv_binned = ggplot(data = sv_tags_all, mapping = aes(x=value, fill = type)) + 
   geom_bar(position="dodge") +
-  theme(axis.title.x = element_blank(), plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
-  labs(legend.position = "none", title = plot.title.binned, y = y.axis.name.binned, fill = "")
+  theme(axis.title.x = element_blank(), legend.position = "none", plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
+  labs(title = plot.title.binned, subtitle = "Grouped histogram with SVs bucketed into fixed variant-sized-bins, grouped by SV\nsub-type (deletions, duplications, insertions). Bin-size can be defined under line 84\nand 87 in plot_structuralvariants.R. Y-axis dictates the number of variants residing\nin each bin and bins are plotted along the x-axis.", y = y.axis.name.binned, fill = "")
 
 #save sv genotypes as table instead of piechart
 sum_genotypes = as.data.frame(sv_tab_genotype_count)
