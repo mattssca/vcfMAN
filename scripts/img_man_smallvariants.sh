@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #combine png for report format
-convert out/small_variants/figs/*_smallvariants_summary.png out/small_variants/figs/*_smallvariants_genotypes.png +append -quiet out/small_variants/out1.png
-convert out/small_variants/figs/*_smallvariants_large_variants.png out/small_variants/figs/*_smallvariants_nongen_variants.png +append -quiet out/small_variants/out2.png
+convert out/small_variants/figs/*_smallvariants_large_variants.png out/small_variants/figs/*_smallvariants_genotypes.png +append -quiet out/small_variants/out1.png
+convert out/small_variants/figs/*_smallvariants_summary.png  out/small_variants/figs/*_smallvariants_nongen_variants.png +append -quiet out/small_variants/out2.png
 convert out/small_variants/figs/*_01_smallvariants_size_violin.png out/small_variants/figs/*_03_snv_chr_dist.png +append -quiet out/small_variants/out3.png
 
 # crop images
