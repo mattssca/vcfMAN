@@ -701,8 +701,9 @@ refN = sum(vcf_refcount$refcount)
 #plot title with subtitles
 plot.title.ideo = ggplot() + 
   annotate("text", x = 1, y = 10, size = 10, label = text.ideo, fontface = "bold", hjust = 0) +
-  annotate("text", x = 1, y = 6, size = 8, label = paste0("Number of reference (REF) nucleotides in VCF: ", refN), hjust = 0) +
-  annotate("text", x = 1, y = 4, size = 8, label = "Chromosome dependant ideogram, SNVs are plotted (superimposed) as green vertical lines along each autosome (grey), revealing chromosomal regions with decreased SNV density.", hjust = 0) +
+  annotate("text", x = 1, y = 6, size = 8, label = paste0("Number of reference (REF) nucleotides in VCF: ", refN), fontface = "bold", hjust = 0) +
+  annotate("text", x = 1, y = 3, size = 8, label = "Chromosome dependant ideogram, SNVs are plotted (superimposed) as green vertical lines along each autosome (grey), revealing chromosomal regions with decreased SNV density.", hjust = 0) +
+  annotate("text", x = 1, y = 0, size = 8, label = "regions with decreased SNV density.", hjust = 0) +
   xlim(0, 100) +
   ylim(0,20) +
   theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.line.x = element_blank(), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank())
