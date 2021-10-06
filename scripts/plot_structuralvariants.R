@@ -165,7 +165,7 @@ sv_chrdist_box = ggplot(sv_calls.count, aes(x = chr, y = n, fill = sv_fam)) +
 sv_binned = ggplot(data = sv_tags_all, mapping = aes(x=value, fill = type)) + 
   geom_bar(position="dodge") +
   theme(axis.title.x = element_blank(), plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
-  labs(title = plot.title.binned, y = y.axis.name.binned, fill = "")
+  labs(legend.position = "none", title = plot.title.binned, y = y.axis.name.binned, fill = "")
 
 #save sv genotypes as table instead of piechart
 sum_genotypes = as.data.frame(sv_tab_genotype_count)
