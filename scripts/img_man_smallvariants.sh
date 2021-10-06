@@ -43,6 +43,7 @@ convert +append -quiet out/small_variants/figs/ideograms/1-12.ideogram.png out/s
 convert out/small_variants/figs/ideograms/plot.title.png out/small_variants/figs/ideograms/ideogram.png	-append -quiet out/small_variants/figs/ideograms/ideogram.png
 
 #resize ideogram to fit report format
+convert out/small_variants/figs/ideograms/ideogram.png -crop 7000x5106+0+0 out/small_variants/figs/ideograms/ideogram.png
 convert -resize 4200 -quality 10 out/small_variants/figs/ideograms/ideogram.png out/small_variants/figs/ideograms/ideogram.png
 
 #compile report
