@@ -150,7 +150,7 @@ sv_size_violine = ggplot(sv_calls, aes(x = sv_fam, y = sv_length, fill = sv_fam)
   labs(title = plot.title.violin, x = "", y = y.axis.name.violin) +
   geom_violin(trim = FALSE, scale = "width", color = NA) +
   stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
-  theme(legend.position = "none") +
+  theme(legend.position = "none", plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
   scale_y_log10() 
 
 #chromosome distribution box plot
@@ -158,13 +158,13 @@ sv_chrdist_box = ggplot(sv_calls.count, aes(x = chr, y = n, fill = sv_fam)) +
   labs(title = plot.title.chrbox, x = "", y = y.axis.name.chrbox, fill = "") +
   scale_x_discrete(limits=c("chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22")) +
   geom_bar(position = "stack", stat = "identity") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
   scale_y_continuous(breaks = seq(0, ymax, by = 200))
 
 #binned sv size
 sv_binned = ggplot(data = sv_tags_all, mapping = aes(x=value, fill = type)) + 
   geom_bar(position="dodge") +
-  theme(axis.title.x = element_blank()) +
+  theme(axis.title.x = element_blank(), plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
   labs(title = plot.title.binned, y = y.axis.name.binned, fill = "")
 
 #save sv genotypes as table instead of piechart
