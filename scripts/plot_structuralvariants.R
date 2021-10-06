@@ -147,7 +147,7 @@ ggthemr("dust")
 
 #violin plot
 sv_size_violine = ggplot(sv_calls, aes(x = sv_fam, y = sv_length, fill = sv_fam)) + 
-  labs(title = plot.title.violin, subtitle = "Violin plot visualizing SV size-distribution. Variant size in log10 scale on y-axis and SV sub-types (deletions, duplications and insertions) on x-axis. Black dot\nannotates mean variant-size.", x = "", y = y.axis.name.violin) +
+  labs(title = plot.title.violin, subtitle = "Violin plot visualizing SV size-distribution. Variant size in log10 scale on y-axis\nand SV sub-types (deletions, duplications and insertions) on x-axis. Black dot annotates mean variant-size.", x = "", y = y.axis.name.violin) +
   geom_violin(trim = FALSE, scale = "width", color = NA) +
   stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
   theme(legend.position = "none", plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
