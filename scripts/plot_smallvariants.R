@@ -324,7 +324,8 @@ sv_size_violine = ggplot(sv_deldup, aes(x = sv_type, y = sv_length, fill = sv_ty
   geom_violin(trim = FALSE, scale = "width", color = NA) +
   stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
   scale_y_continuous(breaks = seq(0, 50, by = 10)) +
-  theme(legend.position = "none", plot.margin=unit(c(0,1.3,0,1.3),"cm"))
+  theme(legend.position = "none", plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
+  scale_y_log10() 
 
 #chromosome distribution box plot
 snv_chrdist_box = ggplot(snvs_count, aes(x = chr, y = n)) +
