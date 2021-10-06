@@ -324,21 +324,22 @@ sv_size_violine = ggplot(sv_deldup, aes(x = sv_type, y = sv_length, fill = sv_ty
   geom_violin(trim = FALSE, scale = "width", color = NA) +
   stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
   scale_y_continuous(breaks = seq(0, 50, by = 10)) +
-  theme(legend.position = "none")
+  theme(legend.position = "none", plot.margin=unit(c(0,1.3,0,1.3),"cm"))
 
 #chromosome distribution box plot
 snv_chrdist_box = ggplot(snvs_count, aes(x = chr, y = n)) +
   labs(title = "SNV per Chromosome", subtitle = "Expectd SNV frequency is 1 SNV per every 1.2Kb",x = "", y = "Count (n)", fill = "") +
   scale_x_discrete(limits=c("chr22", "chr21", "chr20", "chr19", "chr18", "chr17", "chr16", "chr15", "chr14", "chr13", "chr12", "chr11", "chr10", "chr9", "chr8", "chr7", "chr6", "chr5", "chr4", "chr3", "chr2", "chr1")) +
-  geom_bar(position = "stack", stat = "identity", fill = "#3BA87B", width = 0.5) +
+  geom_bar(position = "stack", stat = "identity", fill = "#6FB392", width = 0.5) +
+  theme(plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
   coord_flip()
 
 #density plot of SNV distances
 snv_distance_plot = ggplot(snv_dist_df, aes(x = chr, y = snv_distance)) +
-  geom_boxplot(outlier.shape = NA, fill = "#6E9BF5") + 
+  geom_boxplot(outlier.shape = NA, fill = "#6FB392") + 
   labs(title = "SNV Distance", x = "", y = "Distance (bp)", fill = "") +
   scale_x_discrete(limits=c("chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22")) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none", plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
   ylim(0, quant3)
 
 #plot header for report
