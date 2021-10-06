@@ -103,6 +103,7 @@ In order to install all dependencies, execute [install.dep.sh](https://github.co
 | Package | Enviroment | Version |
 | ------- | ---------- | ------- |
 | Brew | MacOSX | 3.2.0 |
+| Bedtools | MacOSX | 2.30.0 |
 | wget | MacOSX | 1.21.2 |
 | imagemagick | C | 7.1.0 |
 | PhantomJS | C | 2.1.1 |
