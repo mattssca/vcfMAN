@@ -167,10 +167,13 @@ sv_binned = ggplot(data = sv_tags_all, mapping = aes(x=value, fill = type)) +
   theme(axis.title.x = element_blank(), legend.position = "none", plot.margin=unit(c(0,1.3,0,1.3),"cm")) +
   labs(title = plot.title.binned, subtitle = "Grouped histogram with SVs bucketed into fixed variant-sized-bins, grouped by SV\nsub-type (deletions, duplications, insertions). Bin-size can be defined under line 84\nand 87 in plot_structuralvariants.R. Y-axis dictates the number of variants residing\nin each bin and bins are plotted along the x-axis.", y = y.axis.name.binned, fill = "")
 
+#set table theme
+theme_1 = ttheme_default(core = list(fg_params = list(hjust = 0, x = 0.1, fontsize = 9)), colhead = list(fg_params = list(fontsize = 12, fontface = "bold")))
+
 #save sv genotypes as table instead of piechart
 sum_genotypes = as.data.frame(sv_tab_genotype_count)
-colnames(sum_genotypes) <- c("SV Type", "Genotype", "Count")
-sum_genotypes_grob = tableGrob(sum_genotypes, rows = NULL)
+colnames(sum_genotypes) <- c("Variant Type", "Genotype", "Count")
+sum_genotypes_grob = tableGrob(sum_genotypes, theme = theme_1, rows = NULL)
 
 #plot header for raport
 text = paste0(sample_name, " | GRCh38 | Structural Variants | ", now)
@@ -178,6 +181,14 @@ plot.title = ggplot() +
   annotate("text", x = 7, y = 3, size=8, label = text) + 
   theme_void() +
   theme(panel.background = element_rect(fill = "white", colour = "white"))
+
+#plot title with subtitles
+plot.title.circos = ggplot() + 
+  annotate("text", x = 1, y = 10, size = 10, label = "SV Circos Plot", fontface = "bold", hjust = 0) +
+  annotate("text", x = 1, y = 5, size = 7, label = "Circos plot showing SVs in respect to selected chromosomes. Additional tracks, intersections can be added (see documentation).", hjust = 0) +
+  xlim(0, 100) +
+  ylim(0,20) +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.line.x = element_blank(), axis.line.y = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(),  axis.text.y = element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.background = element_blank())
 
 #plot empty box for spacing
 box = ggplot() +
@@ -206,6 +217,7 @@ write.table(sv_dup_bed, file = "out/SVs/tables/bed/sv_dup.bed", sep = "\t", quot
 write.table(sv_ins_bed, file = "out/SVs/tables/bed/sv_ins.bed", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 #export plots
+ggsave("plot.title.png", plot.title.circos, path = "out/SVs/figs/", limitsize = FALSE, scale = 1, width = 80, height = 5, units = c("cm"), dpi = 300)
 ggsave(sv_size_violine, file = paste0("out/SVs/figs/", txtFileName, "_02_sv_size_violin.png"), limitsize = FALSE, width = 7, height = 7, units = c("in"), dpi = 300)
 ggsave(sv_chrdist_box, file = paste0("out/SVs/figs/", txtFileName, "_01_sv_chrdist.png"), limitsize = FALSE, width = 14, height = 6, units = c("in"), dpi = 300)
 ggsave(sv_binned, file = paste0("out/SVs/figs/", txtFileName, "_03_sv_binned.png"), limitsize = FALSE, width = 7, height = 7, units = c("in"), dpi = 300)
