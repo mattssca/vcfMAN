@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #combine png for report format
-convert out/small_variants/figs/*_smallvariants_large_variants.png out/small_variants/figs/*_smallvariants_genotypes.png +append -quiet out/small_variants/out1.png
-convert out/small_variants/figs/*_smallvariants_summary.png  out/small_variants/figs/*_smallvariants_nongen_variants.png +append -quiet out/small_variants/out2.png
-convert out/small_variants/figs/*_01_smallvariants_size_violin.png out/small_variants/figs/*_03_snv_chr_dist.png +append -quiet out/small_variants/out3.png
+convert out/small_variants/figs/*_box1.png out/small_variants/figs/*_smallvariants_summary.png out/small_variants/figs/*_sum_genotypes.png out/small_variants/figs/*_box1.png +append -quiet out/small_variants/out1.png
+convert out/small_variants/figs/*_header.png out/small_variants/figs/*_box2.png out/small_variants/out1.png out/small_variants/figs/*_box2.png -append -quiet out/small_variants/out1.png
+convert out/small_variants/figs/*_01_smallvariants_size_violin.png out/small_variants/figs/*_03_snv_chr_dist.png +append -quiet out/small_variants/out2.png
 
 # crop images
 convert out/small_variants/figs/ideograms/chr1.png -crop 4424x193+132+415 out/small_variants/figs/ideograms/chr1.png
@@ -47,12 +47,11 @@ convert out/small_variants/figs/ideograms/ideogram.png -crop 7000x5106+0+0 out/s
 convert -resize 4200 -quality 10 out/small_variants/figs/ideograms/ideogram.png out/small_variants/figs/ideograms/ideogram.png
 
 #compile report
-convert out/small_variants/figs/*_header.png out/small_variants/out1.png out/small_variants/figs/*_box2.png out/small_variants/out2.png out/small_variants/figs/*_box2.png out/small_variants/out3.png out/small_variants/figs/*_box2.png out/small_variants/figs/*_02_snv_distance.png out/small_variants/figs/ideograms/ideogram.png out/small_variants/figs/*_box2.png -append out/small_variants/report.png
+convert out/small_variants/out1.png out/small_variants/figs/*_box2.png out/small_variants/out2.png out/small_variants/figs/*_box2.png out/small_variants/figs/*_box2.png out/small_variants/figs/*_02_snv_distance.png out/small_variants/figs/ideograms/ideogram.png out/small_variants/figs/*_box2.png -append out/small_variants/report.png
 
 #delete unused files
 rm out/small_variants/out1.png
 rm out/small_variants/out2.png
-rm out/small_variants/out3.png
 rm out/small_variants/figs/*_header.png
 rm out/small_variants/figs/*_box2.png
 rm out/small_variants/figs/ideograms/plot.title.png
