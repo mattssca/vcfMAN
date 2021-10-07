@@ -30,7 +30,7 @@ rcircos.params = RCircos.Get.Plot.Parameters()
 #define plotting parameters
 out.file = paste0("out/SVs/figs/", txtFileName, "_circos.pdf")
 pdf(out.file, height = 14, width = 14)
-par(mai=c(0.25, 0.25, 0.25, 0.25));
+par(mai=c(0.25, 0.25, 0, 0.25));
 plot.new();
 plot.window(c(-1.3, 1.3), c(-1.3, 1.3));
 
