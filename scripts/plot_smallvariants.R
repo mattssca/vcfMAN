@@ -220,16 +220,16 @@ snvs_count = distinct(snvs, chr, .keep_all = TRUE)
 #set y max
 ymax = max(snvs_count$n)
 
-#small variant lenght distribution (del & dup)
-#subset data to only include del and dup
+#small variant lenght distribution (del & ins)
+#subset data to only include del and ins
 sv_del = filter(sv_calls, sv_type == "del")
-sv_dup = filter(sv_calls, sv_type == "dup")
+sv_ins = filter(sv_calls, sv_type == "ins")
 
 #rbind two data frames
-sv_deldup = rbind(sv_del, sv_dup)
+sv_delins = rbind(sv_del, sv_ins)
 
 #remove any potential variants larger than 50bp (=SV)
-sv_deldup = sv_deldup[sv_deldup[,4]<50,]
+sv_delins = sv_delins[sv_delins[,4]<50,]
 
 #SNV ideogram
 #subset all snv to new df
@@ -318,9 +318,50 @@ chr20.cent = read.table("dep/ideograms/centromeres/GRCh38.chr20.centromeres.txt"
 chr21.cent = read.table("dep/ideograms/centromeres/GRCh38.chr21.centromeres.txt", header = FALSE, sep = "\t")
 chr22.cent = read.table("dep/ideograms/centromeres/GRCh38.chr22.centromeres.txt", header = FALSE, sep = "\t")
 
+#genotype box
+#create summary table
+sv_tab = sv_calls %>% select(sv_length, sv_type, genotype)
+
+#turn into factor
+sv_tab$genotype = as.factor(sv_tab$genotype)
+
+#sub genotype info
+levels(sv_tab$genotype)[levels(sv_tab$genotype)=="1|1"] = "hom"
+levels(sv_tab$genotype)[levels(sv_tab$genotype)=="1|0"] = "het"
+levels(sv_tab$genotype)[levels(sv_tab$genotype)=="0|1"] = "het"
+
+#subset dataframe on sv subtype
+sv_tab_del = filter(sv_tab, sv_type == "del")
+sv_tab_ins = filter(sv_tab, sv_type == "ins")
+sv_tab_snv = filter(sv_tab, sv_type == "SNV")
+
+#add chr count variable
+sv_tab_del = sv_tab_del %>% add_count(genotype)
+sv_tab_ins = sv_tab_ins %>% add_count(genotype)
+sv_tab_snv = sv_tab_snv %>% add_count(genotype)
+
+#remove duplicate chr rows
+sv_tab_del = distinct(sv_tab_del, genotype, .keep_all = TRUE)
+sv_tab_ins = distinct(sv_tab_ins, genotype, .keep_all = TRUE)
+sv_tab_snv = distinct(sv_tab_snv, genotype, .keep_all = TRUE)
+
+#melt dataframes into one
+sv_tab_genotype_count = rbind(sv_tab_del, sv_tab_ins, sv_tab_snv)
+
+#subset genotype table
+sv_tab_genotype_count = sv_tab_genotype_count %>% select(sv_type, genotype, n)
+
+#set table theme
+theme_1 = ttheme_default(core = list(fg_params = list(hjust = 0, x = 0.1, fontsize = 9)), colhead = list(fg_params = list(fontsize = 12, fontface = "bold")))
+
+#save sv genotypes as table instead of piechart
+sum_genotypes = as.data.frame(sv_tab_genotype_count)
+colnames(sum_genotypes) <- c("Variant Type", "Genotype", "Count")
+sum_genotypes_grob = tableGrob(sum_genotypes, theme = theme_1, rows = NULL)
+
 #plot
-sv_size_violine = ggplot(sv_deldup, aes(x = sv_type, y = sv_length, fill = sv_type)) + 
-  labs(title = "Small Variants Size Distribution", subtitle = "Violin plot visualizing size-distributions for small variants (i.g deletions & duplications\n≤ 50bp) with SNVs excluded. Variant size (1-50bp) are arranged on the y-axis and\nvariant sub-type on the x-axis. Black dot annotates mean variant-size.", x = "", y = "Size (bp)") +
+sv_size_violine = ggplot(sv_delins, aes(x = sv_type, y = sv_length, fill = sv_type)) + 
+  labs(title = "Small Variants Size Distribution", subtitle = "Violin plot visualizing size-distributions for small variants (i.g deletions & insertions\n≤ 50bp) with SNVs excluded. Variant size (1-50bp) are arranged on the y-axis and\nvariant sub-type on the x-axis. Black dot annotates mean variant-size.", x = "", y = "Size (bp)") +
   geom_violin(trim = FALSE, scale = "width", color = NA) +
   stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
   scale_y_continuous(breaks = seq(0, 50, by = 10)) +
@@ -718,6 +759,7 @@ ggsave(sv_size_violine, file = paste0("out/small_variants/figs/", txtFileName, "
 ggsave(snv_distance_plot, file = paste0("out/small_variants/figs/", txtFileName, "_02_snv_distance.png"), limitsize = FALSE, width = 14, height = 7, units = c("in"), dpi = 300)
 ggsave(snv_chrdist_box, file = paste0("out/small_variants/figs/", txtFileName, "_03_snv_chr_dist.png"), limitsize = FALSE, width = 7, height = 7, units = c("in"), dpi = 300)
 ggsave(plot.title, file = paste0("out/small_variants/figs/", txtFileName, "_header.png"), limitsize = FALSE, width = 14, height = 1, units = c("in"), dpi = 300)
+ggsave(sum_genotypes_grob, file = paste0("out/small_variants/figs/", txtFileName, "_sum_genotypes.png"), limitsize = FALSE, width = 3, height = 2, units = c("in"), dpi = 300)
 ggsave("plot.title.png", plot.title.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 80, height = 7.8, units = c("cm"), dpi = 300)
 ggsave("chr1.png", chr1.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
 ggsave("chr2.png", chr2.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
@@ -741,6 +783,7 @@ ggsave("chr19.png", chr19.ideo, path = "out/small_variants/figs/ideograms/", lim
 ggsave("chr20.png", chr20.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
 ggsave("chr21.png", chr21.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
 ggsave("chr22.png", chr22.ideo, path = "out/small_variants/figs/ideograms/", limitsize = FALSE, scale = 1, width = 40, height = 7.8, units = c("cm"), dpi = 300)
+ggsave(box, file = paste0("out/small_variants/figs/", txtFileName, "_box1.png"), limitsize = FALSE, width = 2, height = 2, units = c("in"), dpi = 300)
 ggsave(box, file = paste0("out/small_variants/figs/", txtFileName, "_box2.png"), limitsize = FALSE, width = 14, height = 0.3, units = c("in"), dpi = 300)
 
 #prompt message to terminal
