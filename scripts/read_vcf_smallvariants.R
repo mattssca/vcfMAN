@@ -58,7 +58,7 @@ vcf_sum$end = vcf_sum$start + vcf_sum$sv_length
 vcf_sum$sv_type = vcf_sum$sv_length
 vcf_sum$sv_type[which(vcf_sum$sv_length == "0")] = "SNV"
 vcf_sum$sv_type[which(vcf_sum$sv_length < 0)] = "del"
-vcf_sum$sv_type[which(vcf_sum$sv_length > 0)] = "dup"
+vcf_sum$sv_type[which(vcf_sum$sv_length > 0)] = "ins"
 
 #create new data frame with selected variables (prepare for plotting and exporting BED)
 vcf_sub = vcf_sum %>% select(chr, start, end, sv_length, sv_type, genotype)
@@ -69,8 +69,6 @@ vcf_sub$sv_type = as.factor(vcf_sub$sv_type)
 vcf_sub$chr = as.factor(vcf_sub$chr)
 
 #subset on autosomes
-selected = paste0("chr", c(1:22))
-#selected = paste0("chr", c(1:22, "x,y"))
 vcf_sub = vcf_sub[vcf_sub$chr %in% selected,]
 
 #duplicate filtered vcf
@@ -181,9 +179,12 @@ names(gen_tab)[names(gen_tab) == "Var.1"] <- "MCT"
 names(large_tab)[names(large_tab) == "Var.1"] <- "MCT"
 names(nongen_tab)[names(nongen_tab) == "Var.1"] <- "MCT"
 
+#rbind columns from individual data frames
+sum_metric_tab = cbind(gen_tab[1], gen_tab[2], gen_tab[3], type_tab[2], type_tab[3], type_tab[4], type_tab[5])
+
 #format new line in data frame
 ldel = filter(vcf_sub, sv_type == "del") %>% nrow()
-ldup = filter(vcf_sub, sv_type == "dup") %>% nrow()
+lins = filter(vcf_sub, sv_type == "ins") %>% nrow()
 lSNV = filter(vcf_sub, sv_type == "SNV") %>% nrow()
 lall = nrow(vcf_sub)
 
@@ -192,7 +193,7 @@ lhom = filter(vcf_sub, genotype == "hom") %>% nrow()
 lgen = lhet + lhom
 
 lldel = filter(vcf_up_large, sv_type == "del") %>% nrow()
-lldup = filter(vcf_up_large, sv_type == "dup") %>% nrow()
+llins = filter(vcf_up_large, sv_type == "ins") %>% nrow()
 llall = nrow(vcf_up_large)
 
 l1_2 = filter(non_hardc_gen, genotype == "1|2") %>% nrow()
@@ -200,19 +201,25 @@ l2_1 = filter(non_hardc_gen, genotype == "2|1") %>% nrow()
 lnongen = nrow(non_hardc_gen)
 
 #combine all lists
-type_tab[nrow(type_tab) + 1,] = c("n", ldup, ldel, lSNV, lall)
-type_tab[nrow(type_tab) + 1,] = c("Small-Variants Summary", "Duplications", "Deletions", "SNVs", "All Variants")
+sum_metric_tab[nrow(sum_metric_tab) + 1,] = c("n", lhet, lhom, lins, ldel, lSNV, lall)
+sum_metric_tab[nrow(sum_metric_tab) + 1,] = c("Type", "Heterozygous", "Homozygous", "Insertions", "Deletions", "SNVs", "All Variants")
+
+type_tab[nrow(type_tab) + 1,] = c("n", lins, ldel, lSNV, lall)
+type_tab[nrow(type_tab) + 1,] = c("Small-Variants Summary", "Insertions", "Deletions", "SNVs", "All Variants")
 
 gen_tab[nrow(gen_tab) + 1,] = c("n", lhet, lhom, lgen)
 gen_tab[nrow(gen_tab) + 1,] = c("Genotypes", "Heterozygous", "Homozygous", "Total")
 
-large_tab[nrow(large_tab) + 1,] = c("n", lldup, lldel, llall)
-large_tab[nrow(large_tab) + 1,] = c("Variants > 50 bp", "Duplications", "Deletions", "All Variants")
+large_tab[nrow(large_tab) + 1,] = c("n", llins, lldel, llall)
+large_tab[nrow(large_tab) + 1,] = c("Variants > 50 bp", "Insertions", "Deletions", "All Variants")
 
 nongen_tab[nrow(nongen_tab) + 1,] = c("n", l1_2, l2_1, lnongen)
 nongen_tab[nrow(nongen_tab) + 1,] = c("Non-hardcoded Genotypes", "1|2", "2|1", "Total")
 
 #rename variable names
+sum_metric_tab$MCT[1] = "Length bp - Mean (SD)"
+sum_metric_tab$MCT[2] = "Length bp - Median [Min, Max]"
+
 type_tab$MCT[1] = "Mean (SD)"
 type_tab$MCT[2] = "Median [Min, Max]"
 
@@ -223,12 +230,18 @@ large_tab$MCT[1] = "Mean (SD)"
 large_tab$MCT[2] = "Median [Min, Max]"
 
 #select rows
+sum_metric_tab_filt = sum_metric_tab[c(4,3,1,2), (1:7)]
 type_tab_filt = type_tab[c(4,3,1,2), (1:5)]
 gen_tab_filt = gen_tab[c(4,3,1,2), (1:4)]
 large_tab_filt = large_tab[c(4,3,1,2), (1:4)]
 nongen_tab_filt = nongen_tab[c(5,4,1,2,3), (1:4)]
 
 #transform summary table
+sum_metric_tab_filt = t(sum_metric_tab_filt)
+sum_metric_tab_filt = as.data.frame(sum_metric_tab_filt)
+colnames(sum_metric_tab_filt) = as.character(unlist(sum_metric_tab_filt[1,]))
+sum_metric_tab_filt = sum_metric_tab_filt[-1, ]
+
 type_tab_filt = t(type_tab_filt)
 type_tab_filt = as.data.frame(type_tab_filt)
 colnames(type_tab_filt) = as.character(unlist(type_tab_filt[1,]))
@@ -249,18 +262,23 @@ nongen_tab_filt = as.data.frame(nongen_tab_filt)
 colnames(nongen_tab_filt) = as.character(unlist(nongen_tab_filt[1,]))
 nongen_tab_filt = nongen_tab_filt[-1, ]
 
+#set table theme
+theme_1 = ttheme_default(core = list(fg_params = list(hjust = 0, x = 0.1, fontsize = 9)), colhead = list(fg_params = list(fontsize = 12, fontface = "bold")))
+
 #convert data frame into grob
-type_grob = tableGrob(type_tab_filt, rows = NULL)
-gen_grob = tableGrob(gen_tab_filt, rows = NULL)
-large_grob = tableGrob(large_tab_filt, rows = NULL) 
-nongen_grob = tableGrob(nongen_tab_filt, rows = NULL)
+sum_metric_grob = tableGrob(sum_metric_tab_filt, theme = theme_1, rows = NULL)
+type_grob = tableGrob(type_tab_filt, theme = theme_1, rows = NULL)
+gen_grob = tableGrob(gen_tab_filt, theme = theme_1, rows = NULL)
+large_grob = tableGrob(large_tab_filt, theme = theme_1, rows = NULL) 
+nongen_grob = tableGrob(nongen_tab_filt, theme = theme_1, rows = NULL)
 
 #write each data frame as a separate sheet to xlsx
 list_of_datasets = list("Small Variants - Genotype" = gen_tab, "Small Variant - SV Type" = type_tab)
 write.xlsx(list_of_datasets, paste0("out/small_variants/tables/", txtFileName, "_smallvariants_summary.xlsx"))
 
 #export summary table as png
-ggsave(type_grob, file = paste0("out/small_variants/figs/", txtFileName, "_smallvariants_summary.png"), limitsize = FALSE, width = 7, height = 2, units = c("in"), dpi = 300)
+ggsave(sum_metric_grob, file = paste0("out/small_variants/figs/", txtFileName, "_smallvariants_summary.png"), limitsize = FALSE, width = 7, height = 2, units = c("in"), dpi = 300)
+ggsave(type_grob, file = paste0("out/small_variants/figs/", txtFileName, "_smallvariants_type.png"), limitsize = FALSE, width = 7, height = 2, units = c("in"), dpi = 300)
 ggsave(gen_grob, file = paste0("out/small_variants/figs/", txtFileName, "_smallvariants_genotypes.png"), limitsize = FALSE, width = 7, height = 2, units = c("in"), dpi = 300)
 ggsave(large_grob, file = paste0("out/small_variants/figs/", txtFileName, "_smallvariants_large_variants.png"), limitsize = FALSE, width = 7, height = 2, units = c("in"), dpi = 300)
 ggsave(nongen_grob, file = paste0("out/small_variants/figs/", txtFileName, "_smallvariants_nongen_variants.png"), limitsize = FALSE, width = 7, height = 2, units = c("in"), dpi = 300)
