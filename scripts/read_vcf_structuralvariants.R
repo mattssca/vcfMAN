@@ -166,8 +166,11 @@ sum_metric_tab_filt = as.data.frame(sum_metric_tab_filt)
 colnames(sum_metric_tab_filt) = as.character(unlist(sum_metric_tab_filt[1,]))
 sum_metric_tab_filt = sum_metric_tab_filt[-1, ]
 
+#set table theme
+theme_1 = ttheme_default(core = list(fg_params = list(hjust = 0, x = 0.1, fontsize = 9)), colhead = list(fg_params = list(fontsize = 12, fontface = "bold")))
+
 #convert data frame into grob
-sum_grob = tableGrob(sum_metric_tab_filt, rows = NULL)
+sum_grob = tableGrob(sum_metric_tab_filt, theme = theme_1, rows = NULL)
 
 #export summary table as png
 ggsave(sum_grob, file = paste0("out/SVs/figs/", txtFileName, "_SV_summary.png"), limitsize = FALSE, width = 7, height = 2, units = c("in"), dpi = 300)
