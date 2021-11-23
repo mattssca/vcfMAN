@@ -90,7 +90,7 @@ Horizontally alligned ideogram highlighting SNVs in a genomic context. Plot make
 
 #### BED Coverage plot
 For each chromosome, number of bases included in BED file, divided by total number of bases for that chromosome, expressed in percentages. The total n bases in BED file as a fraction of the complete genome (grch38).
-![bed_coverage](https://github.com/mattssca/vcfMAN/blob/main/example_figures/BED/bed_chrdist_frac)
+![bed_coverage](https://github.com/mattssca/vcfMAN/blob/main/example_figures/BED/bed_chrdist_frac.png)
 
 #### Tables and Summaries
 Summaries are exported as png files and located in out/amll_variants/fig. In addition to summary figures, tables are also generated. These include: 
