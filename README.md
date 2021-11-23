@@ -1,5 +1,5 @@
 # vcfMAN
-Pipeline consists of scripts (R and bash) for processing Variant Call Format (VCF) files. The purpose of this pipeline is to standardize output and perform downstream plotting for overview of relevant variant metrics and variant distribution. Pipeline takes VCF files related to both Structural Variants (SV) and small variants (variants ≤ 50 bp). The main outputs are tables, BED formatted variant annotations and figures.
+Pipeline consists of scripts (R and bash) for processing Variant Call Format (VCF) files. The purpose of this pipeline is to standardize output and perform downstream plotting for overview of relevant variant metrics and variant distribution. Pipeline takes VCF files related to both Structural Variants (SV) and small variants (variants ≤ 50 bp). The main outputs are tables, BED formatted variant annotations and figures. In addition, tools for visualizing BED coverage are also available.
 
 ## Instructions on how to execute
 1. Download repo to local machine with: `wget https://github.com/mattssca/vcfMAN/archive/refs/heads/main.zip`
@@ -9,7 +9,8 @@ Pipeline consists of scripts (R and bash) for processing Variant Call Format (VC
 5. Migrate VCF files (SVs/mall variants) to corresponding directory (pipeline also takes compressed VCF files in .gzip format)
 6. Execute master script with: `sh vcf_man.sh` follwed by command line argument for input VCF file. Valid commands are; `SVs`, `small_variants` and `both`
 7. Example for running pipeline on small variant VCF `sh vcf_man.sh small_variants`
-8. Output files (figures, tables, summaries and reports) are generated and saved to corresponding output folder (out/SVs or out/small_variants)
+8. If BED (dipcall) is available, user could also execute `sh bed_man.sh` to perform visualizations on the input. Inpot BED file is to be stored in `in/BED`. Script will automatically add BED plot to finalied report.
+9. Output files (figures, tables, summaries and reports) are generated and saved to corresponding output folder (out/SVs or out/small_variants)
 
 ## Flowchart
 Overview of associated processes and workflow described in vcfMAN.
@@ -86,6 +87,10 @@ Plot showing the distribution of distances between neighboring SNVs with SNV dis
 #### SNV Ideogram
 Horizontally alligned ideogram highlighting SNVs in a genomic context. Plot makes use of chromosome lenghts located in dep/ folder. Currently all coordinates are in respect to grch38 and regions excluded (centromeres) are also in refernce to the same build. Tables can be customized to accomodate for other versions of the reference genome, as well as blacklsited regions can also be added to further exclude specific genomic regions.
 ![snv_ideogram](https://github.com/mattssca/vcfMAN/blob/main/example_figures/small_variants/example_small_variants_figure_ideogram.png)
+
+#### BED Coverage plot
+For each chromosome, number of bases included in BED file, divided by total number of bases for that chromosome, expressed in percentages. The total n bases in BED file as a fraction of the complete genome (grch38).
+![bed_coverage](https://github.com/mattssca/vcfMAN/blob/main/example_figures/BED/bed_chrdist_frac)
 
 #### Tables and Summaries
 Summaries are exported as png files and located in out/amll_variants/fig. In addition to summary figures, tables are also generated. These include: 

@@ -51,5 +51,6 @@ rm out/small_variants/figs/ideograms/chr19.png
 rm out/small_variants/figs/ideograms/chr20.png
 rm out/small_variants/figs/ideograms/chr21.png
 rm out/small_variants/figs/ideograms/chr22.png
+rm out/small_variants/figs/ideograms/ideo.yaxis.png
 
 echo "Summary report for small variants compiled...\n"
