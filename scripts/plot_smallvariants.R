@@ -4,7 +4,6 @@ options(warn=-1)
 #load packages
 suppressMessages(library(ggplot2))
 suppressMessages(library(dplyr))
-suppressMessages(library(ggthemr))
 suppressMessages(library(gridExtra))
 suppressMessages(library(RCircos))
 suppressMessages(library(ggthemr))
