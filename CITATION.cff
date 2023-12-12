@@ -1,0 +1,30 @@
+
+cff-version: 1.2.0
+title: vcfMAN
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Carl Adam
+    name-particle: Carl
+    family-names: Mattsson
+    email: mattsada@gmail.com
+    orcid: 'https://orcid.org/0000-0002-6318-7912'
+repository-code: 'https://github.com/mattssca/vcfMAN'
+url: 'https://github.com/mattssca/vcfMAN/blob/main/README.md'
+abstract: >-
+  Pipeline consists of scripts (R and bash) for processing
+  Variant Call Format (VCF) files. The purpose of this
+  pipeline is to standardize output and perform downstream
+  plotting for an overview of relevant variant metrics and
+  variant distribution.
+keywords:
+  - vcf
+  - Bioinformatics
+  - Variant Caller
+  - Vizualization
+license: MIT
+commit: fe7f48fc193e0ab4df67748846a8dfcaff6f8526
+version: '1'
+date-released: '2021-11-12'
